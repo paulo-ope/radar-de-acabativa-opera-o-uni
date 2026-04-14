@@ -7,9 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
 <style>
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   DESIGN SYSTEM â€” RADAR DE ACABATIVA 2.0
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* ════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — RADAR DE ACABATIVA 2.0
+   ════════════════════════════════════════════════════════════ */
 :root {
   --bg-base:       #0C0C10;
   --bg-surface:    #13131A;
@@ -53,7 +53,7 @@
   --spring: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ RESET â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── RESET ────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
@@ -181,14 +181,14 @@ a { color: inherit; text-decoration: none; }
 ::-webkit-scrollbar-track { background: var(--bg-base); }
 ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 4px; }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ LAYOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── LAYOUT ────────── */
 .app-shell {
   display: grid;
   grid-template-rows: auto 1fr;
   min-height: 100vh;
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TOPBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── TOPBAR ────────── */
 .topbar {
   display: flex;
   align-items: center;
@@ -296,7 +296,7 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 4px 24px var(--accent-glow);
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ MAIN AREA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── MAIN AREA ────────── */
 .main-area {
   display: grid;
   grid-template-columns: 220px 1fr;
@@ -304,7 +304,7 @@ a { color: inherit; text-decoration: none; }
   overflow: hidden;
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SIDEBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── SIDEBAR ────────── */
 .sidebar {
   background: var(--bg-surface);
   border-right: 1px solid var(--border);
@@ -484,7 +484,7 @@ a { color: inherit; text-decoration: none; }
   background: var(--accent-dim);
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CONTENT AREA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── CONTENT AREA ────────── */
 .content-area {
   overflow-y: auto;
   overflow-x: hidden;
@@ -494,7 +494,7 @@ a { color: inherit; text-decoration: none; }
   gap: 24px;
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ STATS ROW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── STATS ROW ────────── */
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -551,7 +551,7 @@ a { color: inherit; text-decoration: none; }
   margin-top: auto;
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SECTION HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── SECTION HEADER ────────── */
 .section-header {
   display: flex;
   align-items: center;
@@ -585,7 +585,7 @@ a { color: inherit; text-decoration: none; }
 .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
 .btn-sm.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ KANBAN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── KANBAN ────────── */
 .kanban-board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -645,7 +645,7 @@ a { color: inherit; text-decoration: none; }
   min-height: 80px;
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TASK CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── TASK CARD ────────── */
 .task-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -776,7 +776,7 @@ a { color: inherit; text-decoration: none; }
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ LIST VIEW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── LIST VIEW ────────── */
 .list-view {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -1231,7 +1231,7 @@ a { color: inherit; text-decoration: none; }
 .tag-status-finalizado    { background: var(--green-dim); color: var(--green); }
 .tag-status-em-pausa      { background: var(--purple-dim); color: var(--purple); }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ SKELETON LOADERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── SKELETON LOADERS ────────── */
 @keyframes shimmer {
   0%   { background-position: -400px 0; }
   100% { background-position: 400px 0; }
@@ -1255,7 +1255,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius-lg);
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ DRAWER (OFFCANVAS) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── DRAWER (OFFCANVAS) ────────── */
 .drawer-overlay {
   position: fixed;
   inset: 0;
@@ -1496,7 +1496,7 @@ a { color: inherit; text-decoration: none; }
   cursor: not-allowed;
 }
 .status-opt:hover { border-color: var(--border-bright); color: var(--text-primary); }
-.status-opt.selected[data-val="NÃ£o iniciado"] { background: var(--blue-dim); border-color: var(--blue); color: var(--blue); }
+.status-opt.selected[data-val="Não iniciado"] { background: var(--blue-dim); border-color: var(--blue); color: var(--blue); }
 .status-opt.selected[data-val="Em andamento"] { background: var(--yellow-dim); border-color: var(--yellow); color: var(--yellow); }
 .status-opt.selected[data-val="Finalizado"] { background: var(--green-dim); border-color: var(--green); color: var(--green); }
 .status-opt.selected[data-val="Em pausa"] { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); }
@@ -1539,7 +1539,7 @@ a { color: inherit; text-decoration: none; }
 }
 .btn-save:hover { filter: brightness(1.15); transform: translateY(-1px); }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ TOAST NOTIFICATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── TOAST NOTIFICATIONS ────────── */
 .toast-container {
   position: fixed;
   bottom: 24px;
@@ -1582,7 +1582,7 @@ a { color: inherit; text-decoration: none; }
   to   { transform: translateX(120%); opacity: 0; }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ EMPTY STATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── EMPTY STATE ────────── */
 .empty-col {
   text-align: center;
   padding: 30px 16px;
@@ -1591,7 +1591,7 @@ a { color: inherit; text-decoration: none; }
 }
 .empty-col-icon { font-size: 28px; margin-bottom: 8px; opacity: 0.4; }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ CONFIG BANNER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── CONFIG BANNER ────────── */
 .config-banner {
   background: linear-gradient(135deg, rgba(124,111,255,0.1), rgba(79,195,247,0.05));
   border: 1px solid var(--border);
@@ -1634,7 +1634,7 @@ a { color: inherit; text-decoration: none; }
 }
 .btn-connect:hover { filter: brightness(1.15); }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ LOADING INDICATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── LOADING INDICATOR ────────── */
 .global-loader {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -1652,7 +1652,7 @@ a { color: inherit; text-decoration: none; }
   100%{ transform: scaleX(1); opacity: 0; }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ RESPONSIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────── RESPONSIVE ────────── */
 @media (max-width: 1200px) {
   .kanban-board { grid-template-columns: repeat(2, 1fr); }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
@@ -1675,15 +1675,15 @@ a { color: inherit; text-decoration: none; }
     <div class="auth-side">
       <div class="hero-eyebrow">Radar Platform</div>
       <div class="auth-title">Radar de Acabativa</div>
-      <div class="auth-copy">Uma central para acompanhar prioridades, destravar equipes, registrar contexto e transformar o andamento operacional em visÃ£o clara de execuÃ§Ã£o.</div>
+      <div class="auth-copy">Uma central para acompanhar prioridades, destravar equipes, registrar contexto e transformar o andamento operacional em visão clara de execução.</div>
       <div class="auth-kpi-grid">
         <div class="auth-kpi">
           <div class="auth-kpi-value">Tarefas</div>
-          <div class="auth-kpi-label">ExecuÃ§Ã£o viva com comentÃ¡rios, prazo e contexto</div>
+          <div class="auth-kpi-label">Execução viva com comentários, prazo e contexto</div>
         </div>
         <div class="auth-kpi">
           <div class="auth-kpi-value">SLA</div>
-          <div class="auth-kpi-label">Leitura rÃ¡pida de saÃºde por operaÃ§Ã£o</div>
+          <div class="auth-kpi-label">Leitura rápida de saúde por operação</div>
         </div>
         <div class="auth-kpi">
           <div class="auth-kpi-value">KPIs</div>
@@ -1691,7 +1691,7 @@ a { color: inherit; text-decoration: none; }
         </div>
         <div class="auth-kpi">
           <div class="auth-kpi-value">Radar</div>
-          <div class="auth-kpi-label">VisÃ£o organizada do que precisa andar agora</div>
+          <div class="auth-kpi-label">Visão organizada do que precisa andar agora</div>
         </div>
       </div>
     </div>
@@ -1717,15 +1717,15 @@ a { color: inherit; text-decoration: none; }
 <div class="drawer" id="drawer">
   <div class="drawer-header">
     <div class="drawer-title" id="drawer-title">Nova Tarefa</div>
-    <button class="drawer-close" onclick="closeDrawer()">âœ•</button>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
   </div>
   <div class="drawer-body" id="drawer-body">
     <!-- Rendered by JS -->
   </div>
   <div class="drawer-footer">
-    <button class="btn-danger" id="btn-delete-task" onclick="deleteCurrentEntity()" style="display:none">ðŸ—‘</button>
+    <button class="btn-danger" id="btn-delete-task" onclick="deleteCurrentEntity()" style="display:none">🗑</button>
     <button class="btn-outline" onclick="closeDrawer()">Cancelar</button>
-    <button class="btn-save" onclick="saveCurrentEntity()">ðŸ’¾ Salvar</button>
+    <button class="btn-save" onclick="saveCurrentEntity()">💾 Salvar</button>
   </div>
 </div>
 
@@ -1735,26 +1735,26 @@ a { color: inherit; text-decoration: none; }
   <!-- TOP BAR -->
   <header class="topbar">
     <div class="logo">
-      <div class="logo-icon">âš¡</div>
+      <div class="logo-icon">⚡</div>
       Radar Acabativa
       <span class="logo-badge">2.0</span>
     </div>
     <div class="topbar-sep"></div>
     <div class="search-wrap">
-      <span class="search-icon">ðŸ”</span>
+      <span class="search-icon">🔍</span>
       <input type="text" id="search-input" placeholder="Buscar no radar..." oninput="onSearch(this.value)" />
     </div>
     <div class="topbar-actions">
       <div class="meta-pill" id="current-user-pill" style="display:none"></div>
-      <button class="btn-icon" onclick="refreshData()" title="Atualizar">â†»</button>
+      <button class="btn-icon" onclick="refreshData()" title="Atualizar">↻</button>
       <button class="btn-icon btn-mode" id="theme-toggle" onclick="toggleTheme()" title="Alternar tema">
-        <span id="theme-toggle-icon">â˜€</span>
+        <span id="theme-toggle-icon">☀</span>
         <span id="theme-toggle-text">Modo Dia</span>
       </button>
       <button class="btn-primary" id="btn-primary-action" onclick="openPrimaryDrawer()">
         + Nova Tarefa
       </button>
-      <button class="btn-icon btn-mode" id="logout-btn" onclick="logoutFlow()" title="Sair">âŽ‹</button>
+      <button class="btn-icon btn-mode" id="logout-btn" onclick="logoutFlow()" title="Sair">⎋</button>
     </div>
   </header>
 
@@ -1766,55 +1766,55 @@ a { color: inherit; text-decoration: none; }
       <div class="sidebar-header">
         <div class="sidebar-brand">
           <div class="sidebar-title">Radar Workspace</div>
-          <div class="sidebar-subtitle">NavegaÃ§Ã£o e filtros operacionais</div>
+          <div class="sidebar-subtitle">Navegação e filtros operacionais</div>
         </div>
-        <button class="btn-icon sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="Recolher menu">âŸ¨</button>
+        <button class="btn-icon sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="Recolher menu">⟨</button>
       </div>
       <div class="sidebar-panel">
-        <div class="sidebar-section">OperaÃ§Ã£o</div>
+        <div class="sidebar-section">Operação</div>
         <button class="nav-item active" id="nav-kanban" onclick="switchView('kanban')">
-          <span class="nav-icon">â–¦</span> Kanban
-          <span class="nav-count" id="cnt-kanban">â€”</span>
+          <span class="nav-icon">▦</span> Kanban
+          <span class="nav-count" id="cnt-kanban">—</span>
         </button>
         <button class="nav-item" id="nav-list" onclick="switchView('list')">
-          <span class="nav-icon">â˜°</span> Lista
-          <span class="nav-count" id="cnt-list">â€”</span>
+          <span class="nav-icon">☰</span> Lista
+          <span class="nav-count" id="cnt-list">—</span>
         </button>
         <button class="nav-item" id="nav-sla" onclick="switchView('sla')">
-          <span class="nav-icon">â—”</span> SLA
-          <span class="nav-count" id="cnt-sla">â€”</span>
+          <span class="nav-icon">◔</span> SLA
+          <span class="nav-count" id="cnt-sla">—</span>
         </button>
         <button class="nav-item" id="nav-indicators" onclick="switchView('indicators')">
-          <span class="nav-icon">â—¢</span> Indicadores
-          <span class="nav-count" id="cnt-indicators">â€”</span>
+          <span class="nav-icon">◢</span> Indicadores
+          <span class="nav-count" id="cnt-indicators">—</span>
         </button>
       </div>
 
       <div class="sidebar-panel" id="sidebar-workbench">
         <div class="sidebar-section">Estrutura</div>
         <button class="nav-item" id="nav-collaborators" onclick="switchView('collaborators')">
-          <span class="nav-icon">â—Ž</span> Colaboradores
-          <span class="nav-count" id="cnt-collaborators">â€”</span>
+          <span class="nav-icon">◎</span> Colaboradores
+          <span class="nav-count" id="cnt-collaborators">—</span>
         </button>
         <button class="nav-item" id="nav-departments" onclick="switchView('departments')">
-          <span class="nav-icon">â—‡</span> Departamentos
-          <span class="nav-count" id="cnt-departments">â€”</span>
+          <span class="nav-icon">◇</span> Departamentos
+          <span class="nav-count" id="cnt-departments">—</span>
         </button>
         <button class="nav-item view-hidden" id="nav-access" onclick="switchView('access')">
-          <span class="nav-icon">â—«</span> Acessos
-          <span class="nav-count" id="cnt-access">â€”</span>
+          <span class="nav-icon">◫</span> Acessos
+          <span class="nav-count" id="cnt-access">—</span>
         </button>
       </div>
 
       <div class="sidebar-panel">
         <div class="sidebar-section">Workbench</div>
-        <div class="sidebar-note">Combine status, responsÃ¡veis, equipes e urgÃªncia sem perder o contexto operacional.</div>
+        <div class="sidebar-note">Combine status, responsáveis, equipes e urgência sem perder o contexto operacional.</div>
 
         <div class="filter-group">
           <div class="filter-label">Status</div>
           <div class="filter-chips" id="status-chips">
             <span class="chip active" data-status="">Todos</span>
-            <span class="chip" data-status="NÃ£o iniciado">NÃ£o iniciado</span>
+            <span class="chip" data-status="Não iniciado">Não iniciado</span>
             <span class="chip" data-status="Em andamento">Em andamento</span>
             <span class="chip" data-status="Finalizado">Finalizado</span>
             <span class="chip" data-status="Em pausa">Em pausa</span>
@@ -1829,20 +1829,20 @@ a { color: inherit; text-decoration: none; }
         </div>
 
         <div class="filter-group">
-          <div class="filter-label">ResponsÃ¡veis</div>
-          <button class="filter-toggle" onclick="toggleResponsibleFilters()" id="responsible-toggle">Mostrar responsÃ¡veis</button>
+          <div class="filter-label">Responsáveis</div>
+          <button class="filter-toggle" onclick="toggleResponsibleFilters()" id="responsible-toggle">Mostrar responsáveis</button>
           <div class="filter-chips filter-panel-collapsed" id="responsible-chips">
             <span class="chip active" data-responsible="">Todos</span>
           </div>
         </div>
 
         <div class="filter-group">
-          <div class="filter-label">UrgÃªncia</div>
+          <div class="filter-label">Urgência</div>
           <div class="filter-chips" id="urgency-chips">
             <span class="chip active" data-urgency="">Todas</span>
-            <span class="chip" data-urgency="atrasado">âš ï¸ Atrasado</span>
-            <span class="chip" data-urgency="hoje">ðŸ“… Hoje</span>
-            <span class="chip" data-urgency="futuro">ðŸš€ No prazo</span>
+            <span class="chip" data-urgency="atrasado">⚠️ Atrasado</span>
+            <span class="chip" data-urgency="hoje">📅 Hoje</span>
+            <span class="chip" data-urgency="futuro">🚀 No prazo</span>
           </div>
         </div>
         <div class="filter-actions">
@@ -1857,13 +1857,13 @@ a { color: inherit; text-decoration: none; }
 
       <!-- Config Banner (initial) -->
       <div class="config-banner" id="config-banner">
-        <div class="config-banner-icon">âš™ï¸</div>
+        <div class="config-banner-icon">⚙️</div>
         <div class="config-banner-text">
           <h3>Conectar ao Google Apps Script</h3>
           <p>Cole a URL do seu Web App (doGet/doPost) para sincronizar com a planilha</p>
         </div>
         <input type="text" id="api-url-input" placeholder="https://script.google.com/macros/s/.../exec" />
-        <button class="btn-connect" onclick="setApiUrl()">Conectar â†’</button>
+        <button class="btn-connect" onclick="setApiUrl()">Conectar →</button>
       </div>
 
       <!-- Stats Row -->
@@ -1891,7 +1891,7 @@ a { color: inherit; text-decoration: none; }
           <div class="kanban-col">
             <div class="kanban-header">
               <div class="col-dot" style="background:var(--blue)"></div>
-              <div class="col-title">NÃ£o Iniciado</div>
+              <div class="col-title">Não Iniciado</div>
             </div>
             <div class="kanban-cards">
               <div class="skeleton skeleton-card"></div>
@@ -1935,11 +1935,11 @@ a { color: inherit; text-decoration: none; }
     </main>
   </div>
 </div>
-<!-- JAVASCRIPT â€” CORE APPLICATION -->
+<!-- JAVASCRIPT — CORE APPLICATION -->
 <script>
   'use strict';
 
-  // â”€â”€â”€ STATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── STATE ───────────────────────────────────────────────
   const App = {
     apiUrl: 'https://script.google.com/macros/s/AKfycbzRIBFJciZMM27Og_IeM5n5qcBfJhyp1whyjYrfeA7rxmoiLd8xUoFiuTzKG6NvZBDkVg/exec', // Hardcoded API URL
     tasks: [],
@@ -1965,16 +1965,16 @@ a { color: inherit; text-decoration: none; }
   };
   const ROLE_RANK = { visitante: 1, analista: 2, administrador: 3, dev: 4 };
 
-  // â”€â”€â”€ COLUMNS DEFINITION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── COLUMNS DEFINITION ─────────────────────────────────
   const COLUMNS = [
-    { id: 'NÃ£o iniciado', label: 'NÃ£o Iniciado',  color: 'var(--blue)',   dot: '#4FC3F7' },
+    { id: 'Não iniciado', label: 'Não Iniciado',  color: 'var(--blue)',   dot: '#4FC3F7' },
     { id: 'Em andamento', label: 'Em Andamento',  color: 'var(--yellow)', dot: '#FFB347' },
     { id: 'Em pausa',     label: 'Em Pausa',      color: 'var(--purple)', dot: '#CE93D8' },
     { id: 'Finalizado',   label: 'Finalizado',    color: 'var(--green)',  dot: '#4FFFB0' },
   ];
 
   const STATUS_MAP = {
-    'nÃ£o iniciado': 'NÃ£o iniciado',
+    'não iniciado': 'Não iniciado',
     'em andamento': 'Em andamento',
     'em pausa':     'Em pausa',
     'finalizado':   'Finalizado',
@@ -1985,12 +1985,12 @@ a { color: inherit; text-decoration: none; }
     list:         { title: 'Lista de Tarefas', action: '+ Nova Tarefa', sectionActions: true },
     collaborators:{ title: 'Colaboradores', action: '+ Novo Colaborador', sectionActions: false },
     departments:  { title: 'Departamentos', action: '+ Novo Departamento', sectionActions: false },
-    access:       { title: 'Acessos', action: '+ Novo UsuÃ¡rio', sectionActions: false },
+    access:       { title: 'Acessos', action: '+ Novo Usuário', sectionActions: false },
     sla:          { title: 'SLA', action: '+ Novo Departamento', sectionActions: false },
     indicators:   { title: 'Indicadores', action: '', sectionActions: false },
   };
 
-  // â”€â”€â”€ URGENCY LOGIC â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── URGENCY LOGIC ───────────────────────────────────────
   function getUrgency(task) {
     const s = (task.status || '').toLowerCase();
     if (s.includes('finalizado')) return 'concluido';
@@ -2005,10 +2005,10 @@ a { color: inherit; text-decoration: none; }
   }
 
   function urgencyLabel(u) {
-    return { atrasado:'âš ï¸ Atrasado', hoje:'ðŸ“… Vence Hoje', futuro:'ðŸš€ No Prazo', concluido:'âœ… ConcluÃ­do', pausado:'â¸ Pausado' }[u] || '';
+    return { atrasado:'⚠️ Atrasado', hoje:'📅 Vence Hoje', futuro:'🚀 No Prazo', concluido:'✅ Concluído', pausado:'⏸ Pausado' }[u] || '';
   }
 
-  // â”€â”€â”€ PROGRESS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── PROGRESS ────────────────────────────────────────────
   function parseSubtasks(raw) {
     try { return JSON.parse(raw || '[]'); } catch { return []; }
   }
@@ -2023,7 +2023,7 @@ a { color: inherit; text-decoration: none; }
     return { done, total: subs.length, pct: Math.round((done / subs.length) * 100) };
   }
 
-  // â”€â”€â”€ BITRIX LINK DETECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── BITRIX LINK DETECTION ───────────────────────────────
   function extractBitrixLinks(text) {
     if (!text) return { links: [], cleaned: '' };
     const urlRegex = /(https?:\/\/[^\s\n]+)/g;
@@ -2035,18 +2035,18 @@ a { color: inherit; text-decoration: none; }
     return { links, cleaned };
   }
 
-  // â”€â”€â”€ API â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── API ─────────────────────────────────────────────────
   // NOTA IMPORTANTE SOBRE GOOGLE APPS SCRIPT + CORS:
   // O GAS publica o Web App em uma URL que REDIRECIONA (302) para
-  // outra URL de execuÃ§Ã£o. Isso faz o fetch normal falhar com CORS.
+  // outra URL de execução. Isso faz o fetch normal falhar com CORS.
   //
-  // SoluÃ§Ã£o:
-  //  â€¢ GETs: fetch com mode:'cors' + redirect:'follow' funciona OK
-  //  â€¢ POSTs: o GAS redireciona o POST â†’ o browser bloqueia.
-  //    Usamos fetch com mode:'no-cors' (sem resposta legÃ­vel) e
-  //    aplicamos as mudanÃ§as OTIMISTICAMENTE no estado local.
-  //    O dado Ã© persistido na planilha mas nÃ£o recebemos confirmaÃ§Ã£o JSON.
-  //    Para confirmaÃ§Ã£o, o prÃ³ximo loadTasks() sincroniza.
+  // Solução:
+  //  • GETs: fetch com mode:'cors' + redirect:'follow' funciona OK
+  //  • POSTs: o GAS redireciona o POST → o browser bloqueia.
+  //    Usamos fetch com mode:'no-cors' (sem resposta legível) e
+  //    aplicamos as mudanças OTIMISTICAMENTE no estado local.
+  //    O dado é persistido na planilha mas não recebemos confirmação JSON.
+  //    Para confirmação, o próximo loadTasks() sincroniza.
 
   function showLoader() { document.getElementById('global-loader').classList.add('active'); }
   function hideLoader() { document.getElementById('global-loader').classList.remove('active'); }
@@ -2063,7 +2063,7 @@ a { color: inherit; text-decoration: none; }
     document.body.classList.toggle('light-mode', App.theme === 'light');
     const icon = document.getElementById('theme-toggle-icon');
     const text = document.getElementById('theme-toggle-text');
-    if (icon) icon.textContent = App.theme === 'light' ? 'â˜¾' : 'â˜€';
+    if (icon) icon.textContent = App.theme === 'light' ? '☾' : '☀';
     if (text) text.textContent = App.theme === 'light' ? 'Modo Noite' : 'Modo Dia';
     try { localStorage.setItem('radar-theme', App.theme); } catch (_) {}
   }
@@ -2076,7 +2076,7 @@ a { color: inherit; text-decoration: none; }
     const toggle = document.getElementById('sidebar-toggle');
     appShell?.classList.toggle('sidebar-collapsed', App.sidebarCollapsed);
     if (toggle) {
-      toggle.textContent = App.sidebarCollapsed ? 'âŸ©' : 'âŸ¨';
+      toggle.textContent = App.sidebarCollapsed ? '⟩' : '⟨';
       toggle.title = App.sidebarCollapsed ? 'Expandir menu' : 'Recolher menu';
     }
     try { localStorage.setItem('radar-sidebar-collapsed', App.sidebarCollapsed ? '1' : '0'); } catch (_) {}
@@ -2086,7 +2086,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   async function apiFetch(params) {
-    if (!App.apiUrl) throw new Error('API URL nÃ£o configurada');
+    if (!App.apiUrl) throw new Error('API URL não configurada');
     showLoader();
     try {
       const url = App.apiUrl + '?' + new URLSearchParams({ ...params, token: App.sessionToken || '' });
@@ -2099,7 +2099,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   function apiFetchJsonp(params) {
-    if (!App.apiUrl) return Promise.reject(new Error('API URL nÃ£o configurada'));
+    if (!App.apiUrl) return Promise.reject(new Error('API URL não configurada'));
 
     return new Promise((resolve, reject) => {
       const callbackName = '__radarJsonp_' + Date.now() + '_' + Math.random().toString(36).slice(2);
@@ -2132,7 +2132,7 @@ a { color: inherit; text-decoration: none; }
     return new Promise((resolve, reject) => {
       const callbackName = '__radarPublic_' + Date.now() + '_' + Math.random().toString(36).slice(2);
       const script = document.createElement('script');
-      const timeout = setTimeout(() => cleanup(new Error('Tempo esgotado ao consultar a autenticaÃ§Ã£o')), 15000);
+      const timeout = setTimeout(() => cleanup(new Error('Tempo esgotado ao consultar a autenticação')), 15000);
 
       function cleanup(err, data) {
         clearTimeout(timeout);
@@ -2144,13 +2144,13 @@ a { color: inherit; text-decoration: none; }
 
       window[callbackName] = (payload) => {
         if (!payload || payload.status === 'error') {
-          cleanup(new Error(payload?.data?.message || 'Erro na autenticaÃ§Ã£o'));
+          cleanup(new Error(payload?.data?.message || 'Erro na autenticação'));
           return;
         }
         cleanup(null, payload.data);
       };
 
-      script.onerror = () => cleanup(new Error('Falha ao carregar autenticaÃ§Ã£o'));
+      script.onerror = () => cleanup(new Error('Falha ao carregar autenticação'));
       script.src = App.apiUrl + '?' + new URLSearchParams({ ...params, callback: callbackName });
       document.body.appendChild(script);
     });
@@ -2164,7 +2164,7 @@ a { color: inherit; text-decoration: none; }
         body: JSON.stringify({ action, ...payload })
       });
       const json = await res.json();
-      if (json.status === 'error') throw new Error(json.data?.message || 'Falha na autenticaÃ§Ã£o');
+      if (json.status === 'error') throw new Error(json.data?.message || 'Falha na autenticação');
       return json.data;
     } catch (e) {
       if (!isLikelyFetchError(e)) throw e;
@@ -2214,12 +2214,12 @@ a { color: inherit; text-decoration: none; }
     const copy = document.getElementById('auth-copy');
     if (mode === 'forgot') {
       title.textContent = 'Recuperar senha';
-      copy.textContent = 'Envie um cÃ³digo para o e-mail e redefina a senha com seguranÃ§a.';
+      copy.textContent = 'Envie um código para o e-mail e redefina a senha com segurança.';
       form.innerHTML = `
         <input class="form-input" id="auth-email" type="email" placeholder="seu.email@empresa.com" value="${escAttr(payload.email || '')}" />
         <div class="auth-actions">
-          <button class="btn-save" onclick="requestPasswordResetFlow()">Enviar cÃ³digo</button>
-          <button class="btn-outline" onclick="showAuthShell('reset', { email: document.getElementById('auth-email')?.value || '' })">JÃ¡ tenho cÃ³digo</button>
+          <button class="btn-save" onclick="requestPasswordResetFlow()">Enviar código</button>
+          <button class="btn-outline" onclick="showAuthShell('reset', { email: document.getElementById('auth-email')?.value || '' })">Já tenho código</button>
         </div>
         <div class="auth-link" onclick="showAuthShell('login')">Voltar para login</div>
       `;
@@ -2227,10 +2227,10 @@ a { color: inherit; text-decoration: none; }
     }
     if (mode === 'reset') {
       title.textContent = 'Redefinir senha';
-      copy.textContent = 'Digite o cÃ³digo recebido por e-mail e defina uma nova senha.';
+      copy.textContent = 'Digite o código recebido por e-mail e defina uma nova senha.';
       form.innerHTML = `
         <input class="form-input" id="auth-email" type="email" placeholder="seu.email@empresa.com" value="${escAttr(payload.email || '')}" />
-        <input class="form-input" id="auth-code" type="text" placeholder="CÃ³digo de 6 dÃ­gitos" />
+        <input class="form-input" id="auth-code" type="text" placeholder="Código de 6 dígitos" />
         <input class="form-input" id="auth-new-password" type="password" placeholder="Nova senha" />
         <div class="auth-actions">
           <button class="btn-save" onclick="resetPasswordFlow()">Atualizar senha</button>
@@ -2261,7 +2261,7 @@ a { color: inherit; text-decoration: none; }
     const email = document.getElementById('auth-email')?.value.trim();
     const password = document.getElementById('auth-password')?.value || '';
     if (!validateCorporateEmail(email)) {
-      toast('Informe um e-mail vÃ¡lido.', 'warning');
+      toast('Informe um e-mail válido.', 'warning');
       return;
     }
     if (!password) {
@@ -2274,7 +2274,7 @@ a { color: inherit; text-decoration: none; }
       saveSession(data.token, data.user);
       await loadTasks();
       showAppShell();
-      toast(`SessÃ£o iniciada para ${data.user.nome || data.user.email}`, 'success');
+      toast(`Sessão iniciada para ${data.user.nome || data.user.email}`, 'success');
     } catch (e) {
       toast('Login falhou: ' + e.message, 'error', 5000);
     } finally {
@@ -2285,15 +2285,15 @@ a { color: inherit; text-decoration: none; }
   async function requestPasswordResetFlow() {
     const email = document.getElementById('auth-email')?.value.trim();
     if (!validateCorporateEmail(email)) {
-      toast('Informe um e-mail vÃ¡lido.', 'warning');
+      toast('Informe um e-mail válido.', 'warning');
       return;
     }
     try {
       await callPublicAuth('requestPasswordReset', { email });
-      toast('Se o e-mail existir, o cÃ³digo foi enviado.', 'success', 4500);
+      toast('Se o e-mail existir, o código foi enviado.', 'success', 4500);
       showAuthShell('reset', { email });
     } catch (e) {
-      toast('NÃ£o foi possÃ­vel iniciar a recuperaÃ§Ã£o: ' + e.message, 'error');
+      toast('Não foi possível iniciar a recuperação: ' + e.message, 'error');
     }
   }
 
@@ -2301,42 +2301,42 @@ a { color: inherit; text-decoration: none; }
     const email = document.getElementById('auth-email')?.value.trim();
     const code = document.getElementById('auth-code')?.value.trim();
     const newPassword = document.getElementById('auth-new-password')?.value || '';
-    if (!validateCorporateEmail(email)) return toast('Informe um e-mail vÃ¡lido.', 'warning');
-    if (!code) return toast('Informe o cÃ³digo recebido.', 'warning');
+    if (!validateCorporateEmail(email)) return toast('Informe um e-mail válido.', 'warning');
+    if (!code) return toast('Informe o código recebido.', 'warning');
     if (newPassword.length < 8) return toast('A nova senha precisa ter pelo menos 8 caracteres.', 'warning');
     try {
       await callPublicAuth('resetPassword', { email, code, newPassword });
       toast('Senha atualizada com sucesso.', 'success');
       showAuthShell('login');
     } catch (e) {
-      toast('NÃ£o foi possÃ­vel redefinir a senha: ' + e.message, 'error', 5000);
+      toast('Não foi possível redefinir a senha: ' + e.message, 'error', 5000);
     }
   }
 
   async function apiPost(body) {
-    // Sem API configurada â†’ modo demo local
+    // Sem API configurada → modo demo local
     if (!App.apiUrl) return localDemoAction(body);
 
     showLoader();
     try {
-      // Tentativa 1: POST normal com CORS (funciona se o GAS nÃ£o redirecionar)
+      // Tentativa 1: POST normal com CORS (funciona se o GAS não redirecionar)
       const res = await fetch(App.apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...body, token: App.sessionToken || '' }),
         redirect: 'follow'
       });
-      // Se chegou aqui com resposta legÃ­vel, Ã³timo
+      // Se chegou aqui com resposta legível, ótimo
       if (res.type !== 'opaque' && res.ok) {
         const json = await res.json();
         if (json.status === 'error') throw new Error(json.data?.message || 'Erro na API');
         return json.data;
       }
-      // Opaque (no-cors redirect) â†’ retorna null, o estado local jÃ¡ foi aplicado
+      // Opaque (no-cors redirect) → retorna null, o estado local já foi aplicado
       return null;
     } catch (err) {
       // Se CORS bloquear, tenta no-cors (fire-and-forget) e retorna null
-      // O estado local jÃ¡ foi atualizado otimisticamente pelo chamador
+      // O estado local já foi atualizado otimisticamente pelo chamador
       if (isLikelyFetchError(err)) {
         fetch(App.apiUrl, {
           method: 'POST',
@@ -2351,7 +2351,7 @@ a { color: inherit; text-decoration: none; }
     }
   }
 
-  // â”€â”€â”€ DEMO / LOCAL MODE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── DEMO / LOCAL MODE ───────────────────────────────────
   let _demoId = 900;
   function localDemoAction(body) {
     switch (body.action) {
@@ -2377,9 +2377,9 @@ a { color: inherit; text-decoration: none; }
     }
   }
 
-  // â”€â”€â”€ LOAD DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── LOAD DATA ───────────────────────────────────────────
   async function loadTasks() {
-    if (!App.apiUrl) throw new Error('API URL nÃ£o configurada');
+    if (!App.apiUrl) throw new Error('API URL não configurada');
     try {
       try {
         const data = await apiFetch({ action: 'bootstrap' }) || {};
@@ -2397,7 +2397,7 @@ a { color: inherit; text-decoration: none; }
       syncPrimaryAction();
       document.getElementById('config-banner').style.display = 'none';
     } catch(e) {
-      if (String(e.message || '').includes('SessÃ£o invÃ¡lida') || String(e.message || '').includes('UsuÃ¡rio sem acesso')) {
+      if (String(e.message || '').includes('Sessão inválida') || String(e.message || '').includes('Usuário sem acesso')) {
         clearSession();
         showAuthShell('login');
       }
@@ -2436,22 +2436,22 @@ a { color: inherit; text-decoration: none; }
       return;
     }
     pill.style.display = '';
-    pill.textContent = `${App.currentUser.nome || App.currentUser.email} â€¢ ${App.currentUser.papel}`;
+    pill.textContent = `${App.currentUser.nome || App.currentUser.email} • ${App.currentUser.papel}`;
   }
 
   function logoutFlow() {
     clearSession();
     updateUserPill();
     showAuthShell('login');
-    toast('SessÃ£o encerrada.', 'info');
+    toast('Sessão encerrada.', 'info');
   }
 
   async function refreshData() {
-    toast('Atualizando dadosâ€¦', 'info');
+    toast('Atualizando dados…', 'info');
     await loadTasks();
   }
 
-  // â”€â”€â”€ FILTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── FILTER ──────────────────────────────────────────────
   function applyFilters() {
     App.filteredTasks = App.tasks.filter(t => {
       const u = getUrgency(t);
@@ -2602,7 +2602,7 @@ a { color: inherit; text-decoration: none; }
     const btn = document.getElementById('responsible-toggle');
     if (!el || !btn) return;
     const isHidden = el.classList.toggle('filter-panel-collapsed');
-    btn.textContent = isHidden ? 'Mostrar responsÃ¡veis' : 'Ocultar responsÃ¡veis';
+    btn.textContent = isHidden ? 'Mostrar responsáveis' : 'Ocultar responsáveis';
   }
 
   function focusCollaborator(name, department) {
@@ -2632,7 +2632,7 @@ a { color: inherit; text-decoration: none; }
   bindMultiChipFilter(document.getElementById('status-chips'), 'status', 'statuses');
   bindMultiChipFilter(document.getElementById('urgency-chips'), 'urgency', 'urgencies');
 
-  // â”€â”€â”€ VIEWS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── VIEWS ───────────────────────────────────────────────
   function isTaskView(view) {
     return view === 'kanban' || view === 'list';
   }
@@ -2641,7 +2641,7 @@ a { color: inherit; text-decoration: none; }
     const meta = VIEW_META[App.currentView] || VIEW_META.kanban;
     const btn = document.getElementById('btn-primary-action');
     const sectionActions = document.querySelector('.section-actions');
-    btn.textContent = meta.action || 'Sem aÃ§Ã£o';
+    btn.textContent = meta.action || 'Sem ação';
     btn.classList.toggle('view-hidden', !meta.action);
     if (sectionActions) sectionActions.classList.toggle('view-hidden', !meta.sectionActions);
     document.getElementById('view-title').textContent = meta.title;
@@ -2662,7 +2662,7 @@ a { color: inherit; text-decoration: none; }
     renderBoard();
   }
 
-  // â”€â”€â”€ RENDER STATS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── RENDER STATS ────────────────────────────────────────
   function renderStats() {
     const tasks = App.tasks;
     let total = tasks.length, atrasados = 0, vencem = 0, concluidos = 0;
@@ -2679,37 +2679,37 @@ a { color: inherit; text-decoration: none; }
     const statsEl = document.getElementById('stats-row');
     statsEl.innerHTML = `
       <div class="stat-card" data-type="total" onclick="applyQuickMetricFilter('all')">
-        <div class="stat-icon" style="background:var(--accent-dim);font-size:18px">ðŸ“Š</div>
+        <div class="stat-icon" style="background:var(--accent-dim);font-size:18px">📊</div>
         <div class="stat-value" style="color:var(--accent)">${total}</div>
         <div class="stat-label">Total de Tarefas</div>
         <div class="stat-trend">Todas as equipes</div>
       </div>
       <div class="stat-card" data-type="atrasado" onclick="applyQuickMetricFilter('atrasado')">
-        <div class="stat-icon" style="background:var(--red-dim);font-size:18px">âš ï¸</div>
+        <div class="stat-icon" style="background:var(--red-dim);font-size:18px">⚠️</div>
         <div class="stat-value" style="color:var(--red)">${atrasados}</div>
         <div class="stat-label">Atrasadas</div>
-        <div class="stat-trend">Requerem atenÃ§Ã£o imediata</div>
+        <div class="stat-trend">Requerem atenção imediata</div>
       </div>
       <div class="stat-card" data-type="hoje" onclick="applyQuickMetricFilter('hoje')">
-        <div class="stat-icon" style="background:var(--yellow-dim);font-size:18px">ðŸ“…</div>
+        <div class="stat-icon" style="background:var(--yellow-dim);font-size:18px">📅</div>
         <div class="stat-value" style="color:var(--yellow)">${vencem}</div>
         <div class="stat-label">Vencem Hoje</div>
         <div class="stat-trend">Prazo no dia de hoje</div>
       </div>
       <div class="stat-card" data-type="concluido" onclick="applyQuickMetricFilter('concluido')">
-        <div class="stat-icon" style="background:var(--green-dim);font-size:18px">âœ…</div>
+        <div class="stat-icon" style="background:var(--green-dim);font-size:18px">✅</div>
         <div class="stat-value" style="color:var(--green)">${concluidos}</div>
         <div class="stat-label">Finalizadas</div>
         <div class="stat-trend">${total ? Math.round(concluidos/total*100) : 0}% do total</div>
       </div>
       <div class="stat-card" data-type="total">
-        <div class="stat-icon" style="background:var(--blue-dim);font-size:18px">ðŸ‘¥</div>
+        <div class="stat-icon" style="background:var(--blue-dim);font-size:18px">👥</div>
         <div class="stat-value" style="color:var(--blue)">${ativos}</div>
         <div class="stat-label">Colaboradores Ativos</div>
         <div class="stat-trend">Base operacional cadastrada</div>
       </div>
       <div class="stat-card" data-type="hoje">
-        <div class="stat-icon" style="background:var(--purple-dim);font-size:18px">ðŸ¢</div>
+        <div class="stat-icon" style="background:var(--purple-dim);font-size:18px">🏢</div>
         <div class="stat-value" style="color:var(--purple)">${departamentosAtivos}</div>
         <div class="stat-label">Departamentos</div>
         <div class="stat-trend">Com SLA configuravel</div>
@@ -2717,7 +2717,7 @@ a { color: inherit; text-decoration: none; }
     `;
   }
 
-  // â”€â”€â”€ RENDER BOARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── RENDER BOARD ────────────────────────────────────────
   function renderBoard() {
     if (App.currentView === 'kanban') return renderKanban();
     if (App.currentView === 'list') return renderList();
@@ -2763,7 +2763,7 @@ a { color: inherit; text-decoration: none; }
           </div>
           <div class="kanban-cards" id="cards-${col.id.replace(/ /g,'-')}">
             ${byCol[col.id].length === 0
-              ? `<div class="empty-col"><div class="empty-col-icon">â˜ï¸</div>Nenhuma tarefa</div>`
+              ? `<div class="empty-col"><div class="empty-col-icon">☁️</div>Nenhuma tarefa</div>`
               : byCol[col.id].map(t => renderTaskCard(t)).join('')
             }
           </div>
@@ -2786,7 +2786,7 @@ a { color: inherit; text-decoration: none; }
     const u = getUrgency(t);
     const label = urgencyLabel(u);
     const initials = (t.responsavel || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
-    const prazoStr = t.prazo_conclusao ? new Date(t.prazo_conclusao).toLocaleDateString('pt-BR') : 'â€”';
+    const prazoStr = t.prazo_conclusao ? new Date(t.prazo_conclusao).toLocaleDateString('pt-BR') : '—';
     const prog = progressInfo(t);
     const comments = parseComments(t.comentarios);
     const progBar = prog ? `
@@ -2807,10 +2807,10 @@ a { color: inherit; text-decoration: none; }
       <div class="card-title">${escHtml(t.objetivo)}</div>
       <div class="card-meta">
         <div class="card-avatar">${initials}</div>
-        <div class="card-responsible">${escHtml(t.responsavel || 'â€”')}</div>
-        <div class="card-date">ðŸ“… ${prazoStr}</div>
+        <div class="card-responsible">${escHtml(t.responsavel || '—')}</div>
+        <div class="card-date">📅 ${prazoStr}</div>
       </div>
-      ${comments.length ? `<div class="management-meta" style="margin-top:10px"><span class="meta-pill">ðŸ’¬ ${comments.length} comentÃ¡rio${comments.length > 1 ? 's' : ''}</span></div>` : ''}
+      ${comments.length ? `<div class="management-meta" style="margin-top:10px"><span class="meta-pill">💬 ${comments.length} comentário${comments.length > 1 ? 's' : ''}</span></div>` : ''}
       ${progBar}
     </div>`;
   }
@@ -2823,26 +2823,26 @@ a { color: inherit; text-decoration: none; }
     }
     container.innerHTML = `<div class="list-view"><table class="list-table">
       <thead><tr>
-        <th>Tarefa</th><th>Equipe</th><th>ResponsÃ¡vel</th>
-        <th>Prazo</th><th>Status</th><th>UrgÃªncia</th>
+        <th>Tarefa</th><th>Equipe</th><th>Responsável</th>
+        <th>Prazo</th><th>Status</th><th>Urgência</th>
       </tr></thead>
       <tbody>${App.filteredTasks.map(t => {
         const u = getUrgency(t);
         const label = urgencyLabel(u);
-        const prazoStr = t.prazo_conclusao ? new Date(t.prazo_conclusao).toLocaleDateString('pt-BR') : 'â€”';
-        const stCls = 'tag-status-' + (t.status || 'NÃ£o iniciado').toLowerCase().replace(/ /g,'-').replace('Ã£','a').replace('Ã©','e').replace('Ã³','o').replace('Ã­','i');
+        const prazoStr = t.prazo_conclusao ? new Date(t.prazo_conclusao).toLocaleDateString('pt-BR') : '—';
+        const stCls = 'tag-status-' + (t.status || 'Não iniciado').toLowerCase().replace(/ /g,'-').replace('ã','a').replace('é','e').replace('ó','o').replace('í','i');
         return `<tr class="task-row" data-id="${t.id}">
           <td class="cell-title"><div class="cell-title-text">${escHtml(t.objetivo)}</div></td>
-          <td><span class="tag tag-equipe">${escHtml(t.equipe || 'â€”')}</span></td>
-          <td style="color:var(--text-secondary);font-size:0.78rem">${escHtml(t.responsavel || 'â€”')}</td>
+          <td><span class="tag tag-equipe">${escHtml(t.equipe || '—')}</span></td>
+          <td style="color:var(--text-secondary);font-size:0.78rem">${escHtml(t.responsavel || '—')}</td>
           <td style="color:var(--text-muted);font-size:0.78rem">${prazoStr}</td>
           <td><span class="tag ${stCls}">${escHtml(t.status)}</span></td>
-          <td><span style="font-size:0.78rem">${label}</span>${parseComments(t.comentarios).length ? `<div class="management-subtitle">ðŸ’¬ ${parseComments(t.comentarios).length}</div>` : ''}</td>
+          <td><span style="font-size:0.78rem">${label}</span>${parseComments(t.comentarios).length ? `<div class="management-subtitle">💬 ${parseComments(t.comentarios).length}</div>` : ''}</td>
         </tr>`;
       }).join('')}</tbody>
     </table></div>`;
 
-    // Anexar eventos de clique Ã s linhas da tabela com seguranÃ§a
+    // Anexar eventos de clique às linhas da tabela com segurança
     container.querySelectorAll('.task-row').forEach(row => {
       row.addEventListener('click', () => openTaskDrawer(row.dataset.id));
     });
@@ -2857,7 +2857,7 @@ a { color: inherit; text-decoration: none; }
   function getDepartmentMetrics(depName) {
     const tasks = App.tasks.filter(t => t.equipe === depName);
     const statuses = {
-      naoIniciado: tasks.filter(t => (t.status || '') === 'NÃ£o iniciado').length,
+      naoIniciado: tasks.filter(t => (t.status || '') === 'Não iniciado').length,
       andamento: tasks.filter(t => (t.status || '') === 'Em andamento').length,
       pausa: tasks.filter(t => (t.status || '') === 'Em pausa').length,
       finalizado: tasks.filter(t => (t.status || '') === 'Finalizado').length,
@@ -2880,7 +2880,7 @@ a { color: inherit; text-decoration: none; }
     return `
       <div class="hero-panel">
         <div class="hero-card">
-          <div class="hero-eyebrow">VisÃ£o Geral</div>
+          <div class="hero-eyebrow">Visão Geral</div>
           <div class="hero-title">${title}</div>
           <div class="hero-copy">${copy}</div>
           <div class="hero-kpis">
@@ -2893,7 +2893,7 @@ a { color: inherit; text-decoration: none; }
           </div>
         </div>
         <div class="hero-card">
-          <div class="hero-eyebrow">Leituras rÃ¡pidas</div>
+          <div class="hero-eyebrow">Leituras rápidas</div>
           <div class="insight-list">
             ${insights.map(item => `
               <div class="insight-item">
@@ -2916,17 +2916,17 @@ a { color: inherit; text-decoration: none; }
     }
     const totalActive = items.filter(c => (c.status || 'Ativo') === 'Ativo').length;
     const hero = renderExecutiveHero(
-      'Pessoas com contexto, carga e aÃ§Ã£o direta.',
-      'Cada card reÃºne carteira, risco e desempenho da pessoa. VocÃª pode abrir as tarefas dela, entrar no painel individual ou editar o cadastro.',
+      'Pessoas com contexto, carga e ação direta.',
+      'Cada card reúne carteira, risco e desempenho da pessoa. Você pode abrir as tarefas dela, entrar no painel individual ou editar o cadastro.',
       [
-        { value: items.length, label: 'Colaboradores visÃ­veis', color: 'var(--accent)' },
+        { value: items.length, label: 'Colaboradores visíveis', color: 'var(--accent)' },
         { value: totalActive, label: 'Ativos agora', color: 'var(--green)' },
         { value: [...new Set(items.map(c => c.departamento).filter(Boolean))].length, label: 'Departamentos cobertos', color: 'var(--blue)' }
       ],
       [
-        { label: 'Maior carteira', value: items.map(c => ({ nome:c.nome, total:App.tasks.filter(t => t.responsavel === c.nome).length })).sort((a,b)=>b.total-a.total)[0]?.nome || 'â€”' },
-        { label: 'Mais atrasos', value: items.map(c => ({ nome:c.nome, total:App.tasks.filter(t => t.responsavel === c.nome && getUrgency(t)==='atrasado').length })).sort((a,b)=>b.total-a.total)[0]?.nome || 'â€”', color: 'var(--red)' },
-        { label: 'Cadastro', value: canManageStructure() ? 'Use + Novo Colaborador' : 'Somente visualizaÃ§Ã£o', color: 'var(--yellow)' }
+        { label: 'Maior carteira', value: items.map(c => ({ nome:c.nome, total:App.tasks.filter(t => t.responsavel === c.nome).length })).sort((a,b)=>b.total-a.total)[0]?.nome || '—' },
+        { label: 'Mais atrasos', value: items.map(c => ({ nome:c.nome, total:App.tasks.filter(t => t.responsavel === c.nome && getUrgency(t)==='atrasado').length })).sort((a,b)=>b.total-a.total)[0]?.nome || '—', color: 'var(--red)' },
+        { label: 'Cadastro', value: canManageStructure() ? 'Use + Novo Colaborador' : 'Somente visualização', color: 'var(--yellow)' }
       ]
     );
     container.innerHTML = `${hero}<div class="management-grid">${items.map(c => {
@@ -2981,16 +2981,16 @@ a { color: inherit; text-decoration: none; }
     const departmentTaskCount = items.reduce((acc, dep) => acc + App.tasks.filter(t => t.equipe === dep.nome).length, 0);
     const hero = renderExecutiveHero(
       'Arquitetura de departamentos com leitura operacional.',
-      'Visual de gestÃ£o para enxergar volume, saÃºde de SLA, concentraÃ§Ã£o de tarefas e impacto de cada departamento sem perder o contexto de execuÃ§Ã£o.',
+      'Visual de gestão para enxergar volume, saúde de SLA, concentração de tarefas e impacto de cada departamento sem perder o contexto de execução.',
       [
         { value: items.length, label: 'Departamentos mapeados', color: 'var(--accent)' },
-        { value: departmentTaskCount, label: 'Tarefas distribuÃ­das', color: 'var(--blue)' },
+        { value: departmentTaskCount, label: 'Tarefas distribuídas', color: 'var(--blue)' },
         { value: App.collaborators.length, label: 'Colaboradores na estrutura', color: 'var(--green)' }
       ],
       [
-        { label: 'Maior carteira', value: items.map(d => ({ nome:d.nome, total: App.tasks.filter(t => t.equipe === d.nome).length })).sort((a,b)=>b.total-a.total)[0]?.nome || 'â€”' },
-        { label: 'Mais pressÃ£o', value: items.map(d => ({ nome:d.nome, total: App.tasks.filter(t => t.equipe === d.nome && getUrgency(t)==='atrasado').length })).sort((a,b)=>b.total-a.total)[0]?.nome || 'â€”', color: 'var(--red)' },
-        { label: 'Melhor saÃºde', value: items.map(d => ({ nome:d.nome, health:getDepartmentMetrics(d.nome).slaHealth })).sort((a,b)=>b.health-a.health)[0]?.nome || 'â€”', color: 'var(--green)' }
+        { label: 'Maior carteira', value: items.map(d => ({ nome:d.nome, total: App.tasks.filter(t => t.equipe === d.nome).length })).sort((a,b)=>b.total-a.total)[0]?.nome || '—' },
+        { label: 'Mais pressão', value: items.map(d => ({ nome:d.nome, total: App.tasks.filter(t => t.equipe === d.nome && getUrgency(t)==='atrasado').length })).sort((a,b)=>b.total-a.total)[0]?.nome || '—', color: 'var(--red)' },
+        { label: 'Melhor saúde', value: items.map(d => ({ nome:d.nome, health:getDepartmentMetrics(d.nome).slaHealth })).sort((a,b)=>b.health-a.health)[0]?.nome || '—', color: 'var(--green)' }
       ]
     );
     container.innerHTML = `${hero}<div class="dept-matrix">${items.map(d => {
@@ -3019,7 +3019,7 @@ a { color: inherit; text-decoration: none; }
               <div class="dept-stat-value">${metrics.tasks.length}</div>
             </div>
             <div class="dept-stat">
-              <div class="dept-stat-label">SaÃºde SLA</div>
+              <div class="dept-stat-label">Saúde SLA</div>
               <div class="dept-stat-value" style="color:${getStatusTone(metrics.slaHealth)}">${metrics.slaHealth}%</div>
             </div>
           </div>
@@ -3031,7 +3031,7 @@ a { color: inherit; text-decoration: none; }
           </div>
           <div style="margin-top:12px">
             <div class="metric-row" style="padding-top:0">
-              <span class="metric-name">ConclusÃ£o do departamento</span>
+              <span class="metric-name">Conclusão do departamento</span>
               <span class="metric-value" style="font-size:1rem;color:${getStatusTone(metrics.conclusao)}">${metrics.conclusao}%</span>
             </div>
             <div class="progress-track"><div class="progress-fill" style="width:${metrics.conclusao}%"></div></div>
@@ -3053,15 +3053,15 @@ a { color: inherit; text-decoration: none; }
     const items = filterBySearch(App.users, ['nome', 'email', 'papel']);
     const hero = renderExecutiveHero(
       'Controle de acesso do Radar.',
-      'Gerencie quem entra no sistema, qual papel cada pessoa possui e quais contas estÃ£o ativas ou com e-mail pendente.',
+      'Gerencie quem entra no sistema, qual papel cada pessoa possui e quais contas estão ativas ou com e-mail pendente.',
       [
-        { value: items.length, label: 'UsuÃ¡rios cadastrados', color: 'var(--accent)' },
+        { value: items.length, label: 'Usuários cadastrados', color: 'var(--accent)' },
         { value: items.filter(u => u.ativo === 'true').length, label: 'Contas ativas', color: 'var(--green)' },
         { value: items.filter(u => u.email_verificado === 'true').length, label: 'E-mails verificados', color: 'var(--blue)' }
       ],
       [
-        { label: 'Perfil mais alto', value: items.find(u => u.papel === 'dev')?.nome || 'â€”' },
-        { label: 'Pendentes de verificaÃ§Ã£o', value: items.filter(u => u.email_verificado !== 'true').length, color: 'var(--yellow)' },
+        { label: 'Perfil mais alto', value: items.find(u => u.papel === 'dev')?.nome || '—' },
+        { label: 'Pendentes de verificação', value: items.filter(u => u.email_verificado !== 'true').length, color: 'var(--yellow)' },
         { label: 'Contas inativas', value: items.filter(u => u.ativo !== 'true').length, color: 'var(--red)' }
       ]
     );
@@ -3092,16 +3092,16 @@ a { color: inherit; text-decoration: none; }
     const onTrack = App.tasks.filter(t => ['hoje','futuro','concluido'].includes(getUrgency(t))).length;
     const overdue = App.tasks.filter(t => getUrgency(t) === 'atrasado').length;
     const hero = renderExecutiveHero(
-      'SaÃºde de SLA em tempo real.',
-      'Um cockpit para identificar gargalos por departamento, risco de vencimento e tendÃªncia de cumprimento antes de a operaÃ§Ã£o travar.',
+      'Saúde de SLA em tempo real.',
+      'Um cockpit para identificar gargalos por departamento, risco de vencimento e tendência de cumprimento antes de a operação travar.',
       [
         { value: `${App.tasks.length ? Math.round((onTrack / App.tasks.length) * 100) : 0}%`, label: 'Dentro do combinado', color: 'var(--green)' },
         { value: overdue, label: 'Fora do SLA', color: 'var(--red)' },
         { value: App.tasks.filter(t => getUrgency(t) === 'hoje').length, label: 'Vence hoje', color: 'var(--yellow)' }
       ],
       [
-        { label: 'Departamento crÃ­tico', value: rows[0]?.dep?.nome || 'â€”', color: 'var(--red)' },
-        { label: 'Melhor taxa de saÃºde', value: rows.slice().sort((a,b)=>b.metrics.slaHealth-a.metrics.slaHealth)[0]?.dep?.nome || 'â€”', color: 'var(--green)' },
+        { label: 'Departamento crítico', value: rows[0]?.dep?.nome || '—', color: 'var(--red)' },
+        { label: 'Melhor taxa de saúde', value: rows.slice().sort((a,b)=>b.metrics.slaHealth-a.metrics.slaHealth)[0]?.dep?.nome || '—', color: 'var(--green)' },
         { label: 'Meta de leitura', value: 'Prazo + status por equipe' }
       ]
     );
@@ -3112,14 +3112,14 @@ a { color: inherit; text-decoration: none; }
           <div class="panel-card-header">
             <div>
               <div class="panel-card-title">Mapa de SLA por departamento</div>
-              <div class="panel-card-subtitle">SaÃºde, atraso e pressÃ£o operacional</div>
+              <div class="panel-card-subtitle">Saúde, atraso e pressão operacional</div>
             </div>
           </div>
           ${rows.length ? rows.map(row => `
             <div class="metric-row">
               <div style="flex:1">
                 <div class="metric-name">${escHtml(row.dep.nome)}</div>
-                <div class="panel-card-subtitle">Meta ${escHtml(row.dep.sla_dias || '3')} dias â€¢ ${row.metrics.tasks.length} tarefas</div>
+                <div class="panel-card-subtitle">Meta ${escHtml(row.dep.sla_dias || '3')} dias • ${row.metrics.tasks.length} tarefas</div>
                 <div class="progress-track" style="margin-top:10px"><div class="progress-fill" style="width:${row.metrics.slaHealth}%"></div></div>
               </div>
               <div style="text-align:right;min-width:72px">
@@ -3131,19 +3131,19 @@ a { color: inherit; text-decoration: none; }
         </div>
         <div class="panel-stack">
           <div class="panel-card">
-            <div class="panel-card-title">Leituras rÃ¡pidas</div>
+            <div class="panel-card-title">Leituras rápidas</div>
             <div class="metric-row"><span class="metric-name">Departamentos monitorados</span><span class="metric-value">${App.departments.length}</span></div>
             <div class="metric-row"><span class="metric-name">Tarefas dentro do prazo</span><span class="metric-value" style="color:var(--green)">${onTrack}</span></div>
             <div class="metric-row"><span class="metric-name">Tarefas fora do SLA</span><span class="metric-value" style="color:var(--red)">${overdue}</span></div>
             <div class="metric-row"><span class="metric-name">Prazo vence hoje</span><span class="metric-value" style="color:var(--yellow)">${App.tasks.filter(t => getUrgency(t) === 'hoje').length}</span></div>
           </div>
           <div class="panel-card">
-            <div class="panel-card-title">DistribuiÃ§Ã£o por status</div>
-            <div class="metric-row"><span class="metric-name">NÃ£o iniciado</span><span class="metric-value">${App.tasks.filter(t => t.status === 'NÃ£o iniciado').length}</span></div>
+            <div class="panel-card-title">Distribuição por status</div>
+            <div class="metric-row"><span class="metric-name">Não iniciado</span><span class="metric-value">${App.tasks.filter(t => t.status === 'Não iniciado').length}</span></div>
             <div class="metric-row"><span class="metric-name">Em andamento</span><span class="metric-value">${App.tasks.filter(t => t.status === 'Em andamento').length}</span></div>
             <div class="metric-row"><span class="metric-name">Em pausa</span><span class="metric-value">${App.tasks.filter(t => t.status === 'Em pausa').length}</span></div>
             <div class="metric-row"><span class="metric-name">Finalizado</span><span class="metric-value" style="color:var(--green)">${App.tasks.filter(t => t.status === 'Finalizado').length}</span></div>
-            <div class="table-note">Leitura baseada no prazo de conclusÃ£o da tarefa e na estrutura atual de departamentos.</div>
+            <div class="table-note">Leitura baseada no prazo de conclusão da tarefa e na estrutura atual de departamentos.</div>
           </div>
         </div>
       </div>
@@ -3184,16 +3184,16 @@ a { color: inherit; text-decoration: none; }
     const bestKpi = topResponsaveis.slice().sort((a,b)=>b.kpi-a.kpi)[0];
     const hero = renderExecutiveHero(
       App.indicatorFocus ? `KPIs de ${escHtml(App.indicatorFocus)}.` : 'KPIs individuais e operacionais.',
-      App.indicatorFocus ? 'Foco individual aplicado apenas dentro desta aba. Ao sair dela, o filtro Ã© limpo automaticamente.' : 'Indicadores desenhados para leitura rÃ¡pida: performance individual, concentraÃ§Ã£o de demanda por departamento e distribuiÃ§Ã£o real dos status da operaÃ§Ã£o.',
+      App.indicatorFocus ? 'Foco individual aplicado apenas dentro desta aba. Ao sair dela, o filtro é limpo automaticamente.' : 'Indicadores desenhados para leitura rápida: performance individual, concentração de demanda por departamento e distribuição real dos status da operação.',
       [
-        { value: topResponsaveis.length, label: 'ResponsÃ¡veis monitorados', color: 'var(--accent)' },
+        { value: topResponsaveis.length, label: 'Responsáveis monitorados', color: 'var(--accent)' },
         { value: bestKpi ? `${bestKpi.kpi}%` : '0%', label: 'Melhor KPI individual', color: 'var(--green)' },
-        { value: scopedTasks.filter(t => t.status === 'Em andamento').length, label: 'Tarefas em execuÃ§Ã£o', color: 'var(--yellow)' }
+        { value: scopedTasks.filter(t => t.status === 'Em andamento').length, label: 'Tarefas em execução', color: 'var(--yellow)' }
       ],
       [
-        { label: 'Destaque individual', value: bestKpi?.nome || 'â€”', color: 'var(--green)' },
-        { label: 'Equipe mais carregada', value: topEquipes[0]?.nome || 'â€”' },
-        { label: 'Atraso individual mÃ¡ximo', value: topResponsaveis.slice().sort((a,b)=>b.atrasadas-a.atrasadas)[0]?.nome || 'â€”', color: 'var(--red)' }
+        { label: 'Destaque individual', value: bestKpi?.nome || '—', color: 'var(--green)' },
+        { label: 'Equipe mais carregada', value: topEquipes[0]?.nome || '—' },
+        { label: 'Atraso individual máximo', value: topResponsaveis.slice().sort((a,b)=>b.atrasadas-a.atrasadas)[0]?.nome || '—', color: 'var(--red)' }
       ]
     );
 
@@ -3204,14 +3204,14 @@ a { color: inherit; text-decoration: none; }
           <div class="panel-card-header">
             <div>
               <div class="panel-card-title">KPI individual</div>
-              <div class="panel-card-subtitle">ConcluÃ­das, carteira e risco pessoal</div>
+              <div class="panel-card-subtitle">Concluídas, carteira e risco pessoal</div>
             </div>
           </div>
           ${topResponsaveis.length ? topResponsaveis.map(item => `
             <div class="metric-row">
               <div style="flex:1">
                 <div class="metric-name">${escHtml(item.nome)}</div>
-                <div class="panel-card-subtitle">${item.concluidas} concluidas â€¢ ${item.atrasadas} atrasadas â€¢ ${item.total} no total</div>
+                <div class="panel-card-subtitle">${item.concluidas} concluidas • ${item.atrasadas} atrasadas • ${item.total} no total</div>
                 <div class="progress-track" style="margin-top:10px"><div class="progress-fill" style="width:${item.kpi}%"></div></div>
               </div>
               <div style="text-align:right;min-width:68px">
@@ -3228,15 +3228,15 @@ a { color: inherit; text-decoration: none; }
               <div class="metric-row">
                 <div>
                   <div class="metric-name">${escHtml(item.nome)}</div>
-                  <div class="panel-card-subtitle">${item.finalizado} finalizadas â€¢ ${item.andamento} em andamento â€¢ ${item.atrasadas} atrasadas</div>
+                  <div class="panel-card-subtitle">${item.finalizado} finalizadas • ${item.andamento} em andamento • ${item.atrasadas} atrasadas</div>
                 </div>
                 <div class="metric-value">${item.total}</div>
               </div>
             `).join('') : '<div class="empty-col">Sem dados para indicadores</div>'}
           </div>
           <div class="panel-card">
-            <div class="panel-card-title">Status gerais da operaÃ§Ã£o</div>
-            <div class="metric-row"><span class="metric-name">NÃ£o iniciado</span><span class="metric-value">${App.tasks.filter(t => t.status === 'NÃ£o iniciado').length}</span></div>
+            <div class="panel-card-title">Status gerais da operação</div>
+            <div class="metric-row"><span class="metric-name">Não iniciado</span><span class="metric-value">${App.tasks.filter(t => t.status === 'Não iniciado').length}</span></div>
             <div class="metric-row"><span class="metric-name">Em andamento</span><span class="metric-value" style="color:var(--yellow)">${App.tasks.filter(t => t.status === 'Em andamento').length}</span></div>
             <div class="metric-row"><span class="metric-name">Em pausa</span><span class="metric-value" style="color:var(--purple)">${App.tasks.filter(t => t.status === 'Em pausa').length}</span></div>
             <div class="metric-row"><span class="metric-name">Finalizado</span><span class="metric-value" style="color:var(--green)">${App.tasks.filter(t => t.status === 'Finalizado').length}</span></div>
@@ -3246,7 +3246,7 @@ a { color: inherit; text-decoration: none; }
     `;
   }
 
-  // â”€â”€â”€ DRAG & DROP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── DRAG & DROP ─────────────────────────────────────────
   function onDragStart(e, id) {
     App.draggedId = id;
     e.dataTransfer.effectAllowed = 'move';
@@ -3261,7 +3261,7 @@ a { color: inherit; text-decoration: none; }
     e.preventDefault();
     document.querySelectorAll('.kanban-col').forEach(c => c.classList.remove('drag-over'));
     if (!canEditTask()) {
-      toast('Seu perfil pode comentar, mas não alterar status.', 'warning');
+      toast('Seu perfil pode comentar, mas n�o alterar status.', 'warning');
       App.draggedId = null;
       return;
     }
@@ -3272,22 +3272,22 @@ a { color: inherit; text-decoration: none; }
     applyFilters(); renderBoard();
     try {
       await apiPost({ action: 'updateStatus', id: task.id, status });
-      toast(`Status atualizado â†’ ${status}`, 'success');
+      toast(`Status atualizado → ${status}`, 'success');
     } catch(e) { toast('Erro ao atualizar status', 'error'); }
   }
 
-  // â”€â”€â”€ DRAWER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── DRAWER ──────────────────────────────────────────────
   function openPrimaryDrawer() {
     if (!canCreateTask() && isTaskView(App.currentView)) {
-      toast('Seu perfil nÃ£o pode cadastrar novas tarefas.', 'warning');
+      toast('Seu perfil não pode cadastrar novas tarefas.', 'warning');
       return;
     }
     if (!canManageStructure() && (App.currentView === 'collaborators' || App.currentView === 'departments' || App.currentView === 'sla')) {
-      toast('Seu perfil nÃ£o pode cadastrar itens estruturais.', 'warning');
+      toast('Seu perfil não pode cadastrar itens estruturais.', 'warning');
       return;
     }
     if (App.currentView === 'access' && !canManageUsers()) {
-      toast('Seu perfil nÃ£o pode gerenciar acessos.', 'warning');
+      toast('Seu perfil não pode gerenciar acessos.', 'warning');
       return;
     }
     if (App.currentView === 'collaborators') return openCollaboratorDrawer();
@@ -3312,7 +3312,7 @@ a { color: inherit; text-decoration: none; }
     const task = App.tasks.find(t => String(t.id) === String(id));
     if (!task) return;
     if (!canEditTask() && hasRole('visitante')) {
-      toast('Seu perfil Ã© somente leitura.', 'warning');
+      toast('Seu perfil é somente leitura.', 'warning');
     }
     App.drawerMode = 'task';
     App.currentTask = JSON.parse(JSON.stringify(task)); // deep copy
@@ -3326,7 +3326,7 @@ a { color: inherit; text-decoration: none; }
 
   function openDepartmentDrawer(id) {
     if (!canManageStructure()) {
-      toast('Seu perfil nÃ£o pode alterar departamentos.', 'warning');
+      toast('Seu perfil não pode alterar departamentos.', 'warning');
       return;
     }
     App.drawerMode = 'department';
@@ -3341,7 +3341,7 @@ a { color: inherit; text-decoration: none; }
 
   function openCollaboratorDrawer(id) {
     if (!canManageStructure()) {
-      toast('Seu perfil nÃ£o pode alterar colaboradores.', 'warning');
+      toast('Seu perfil não pode alterar colaboradores.', 'warning');
       return;
     }
     App.drawerMode = 'collaborator';
@@ -3356,7 +3356,7 @@ a { color: inherit; text-decoration: none; }
 
   function openUserDrawer(id) {
     if (!canManageUsers()) {
-      toast('Seu perfil nÃ£o pode gerenciar acessos.', 'warning');
+      toast('Seu perfil não pode gerenciar acessos.', 'warning');
       return;
     }
     App.drawerMode = 'user';
@@ -3364,7 +3364,7 @@ a { color: inherit; text-decoration: none; }
     App.currentDepartment = null;
     App.currentCollaborator = null;
     App.currentAccessUser = id ? JSON.parse(JSON.stringify(App.users.find(u => String(u.id) === String(id)) || null)) : null;
-    document.getElementById('drawer-title').textContent = App.currentAccessUser ? 'Editar Acesso' : 'Novo UsuÃ¡rio';
+    document.getElementById('drawer-title').textContent = App.currentAccessUser ? 'Editar Acesso' : 'Novo Usuário';
     document.getElementById('btn-delete-task').style.display = 'none';
     renderUserDrawerForm(App.currentAccessUser);
     openDrawer();
@@ -3429,7 +3429,7 @@ a { color: inherit; text-decoration: none; }
     const comments = parseComments(t.comentarios);
     const { links, cleaned } = extractBitrixLinks(t.observacoes);
 
-    const statusOpts = ['NÃ£o iniciado','Em andamento','Finalizado','Em pausa']
+    const statusOpts = ['Não iniciado','Em andamento','Finalizado','Em pausa']
       .map(s => `<button class="status-opt${t.status===s?' selected':''}" data-val="${s}" ${readOnlyTask ? 'disabled' : ''} onclick="selectStatus(this)">${s}</button>`).join('');
 
     const equipes = getDepartmentNames();
@@ -3439,7 +3439,7 @@ a { color: inherit; text-decoration: none; }
 
     document.getElementById('drawer-body').innerHTML = `
       <div class="form-group">
-        <label class="form-label">Objetivo / TÃ­tulo</label>
+        <label class="form-label">Objetivo / Título</label>
         <textarea class="form-textarea" id="f-objetivo" rows="3" ${readOnlyTask ? 'readonly' : ''}>${escHtml(t.objetivo||'')}</textarea>
       </div>
       <div class="form-row">
@@ -3451,16 +3451,16 @@ a { color: inherit; text-decoration: none; }
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">ResponsÃ¡vel</label>
+          <label class="form-label">Responsável</label>
           <select class="form-select" id="f-responsavel" ${readOnlyTask ? 'disabled' : ''}>
             <option value="">Selecione um colaborador</option>
-            ${responsaveis.map(r => `<option value="${escHtml(r.nome)}"${t.responsavel===r.nome?' selected':''}>${escHtml(r.nome)}${r.cargo ? ' â€” ' + escHtml(r.cargo) : ''}</option>`).join('')}
+            ${responsaveis.map(r => `<option value="${escHtml(r.nome)}"${t.responsavel===r.nome?' selected':''}>${escHtml(r.nome)}${r.cargo ? ' — ' + escHtml(r.cargo) : ''}</option>`).join('')}
           </select>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Prazo de ConclusÃ£o</label>
+          <label class="form-label">Prazo de Conclusão</label>
           <input class="form-input" id="f-prazo" type="date" value="${t.prazo_conclusao||''}" ${readOnlyTask ? 'disabled' : ''} />
         </div>
         <div class="form-group">
@@ -3469,15 +3469,15 @@ a { color: inherit; text-decoration: none; }
         </div>
       </div>
       <div class="form-group">
-        <label class="form-label">ObservaÃ§Ãµes</label>
-        <textarea class="form-textarea" id="f-obs" placeholder="Notas, links do Bitrix24â€¦" ${readOnlyTask ? 'readonly' : ''}>${escHtml(cleaned)}</textarea>
-        ${links.length ? `<div class="obs-links">${links.map((l,i) => `<a class="bitrix-btn" href="${l}" target="_blank">ðŸ”— Tarefa Bitrix #${i+1}</a>`).join('')}</div>` : ''}
+        <label class="form-label">Observações</label>
+        <textarea class="form-textarea" id="f-obs" placeholder="Notas, links do Bitrix24…" ${readOnlyTask ? 'readonly' : ''}>${escHtml(cleaned)}</textarea>
+        ${links.length ? `<div class="obs-links">${links.map((l,i) => `<a class="bitrix-btn" href="${l}" target="_blank">🔗 Tarefa Bitrix #${i+1}</a>`).join('')}</div>` : ''}
       </div>
 
       <div class="subtasks-section">
         <div class="subtasks-header">
-          <span class="subtasks-title">âš¡ Subtarefas</span>
-          ${prog ? `<span class="subtask-progress-mini">${prog.done}/${prog.total} â€” ${prog.pct}%</span>` : ''}
+          <span class="subtasks-title">⚡ Subtarefas</span>
+          ${prog ? `<span class="subtask-progress-mini">${prog.done}/${prog.total} — ${prog.pct}%</span>` : ''}
         </div>
         <div class="subtask-list" id="subtask-list">
           ${subs.map((s, i) => renderSubtaskItem(s, i, readOnlyTask)).join('')}
@@ -3486,7 +3486,7 @@ a { color: inherit; text-decoration: none; }
       </div>
       <div class="subtasks-section">
         <div class="subtasks-header">
-          <span class="subtasks-title">ðŸ’¬ ComentÃ¡rios</span>
+          <span class="subtasks-title">💬 Comentários</span>
           ${comments.length ? `<span class="subtask-progress-mini">${comments.length} nota${comments.length > 1 ? 's' : ''}</span>` : ''}
         </div>
         <div class="subtask-list">
@@ -3498,13 +3498,13 @@ a { color: inherit; text-decoration: none; }
               </div>
               <div class="management-subtitle" style="color:var(--text-primary)">${escHtml(comment.texto || '')}</div>
             </div>
-          `).join('') : `<div class="empty-col" style="padding:18px 12px">Nenhum comentÃ¡rio registrado</div>`}
+          `).join('') : `<div class="empty-col" style="padding:18px 12px">Nenhum comentário registrado</div>`}
         </div>
         ${canCommentTask() && t.id ? `
-          <div class="management-subtitle" style="margin:4px 0 2px">O comentário só será publicado quando você clicar em salvar comentário.</div>
-          <textarea class="form-textarea" id="task-comment-input" rows="3" placeholder="Adicione um comentário útil sobre andamento, risco, decisão ou contexto"></textarea>
+          <div class="management-subtitle" style="margin:4px 0 2px">O coment�rio s� ser� publicado quando voc� clicar em salvar coment�rio.</div>
+          <textarea class="form-textarea" id="task-comment-input" rows="3" placeholder="Adicione um coment�rio �til sobre andamento, risco, decis�o ou contexto"></textarea>
           <div class="management-actions">
-            <button class="btn-add-subtask" style="margin-top:0" onclick="saveTaskComment()">Salvar comentário</button>
+            <button class="btn-add-subtask" style="margin-top:0" onclick="saveTaskComment()">Salvar coment�rio</button>
           </div>
         ` : ''}
       </div>
@@ -3523,12 +3523,12 @@ a { color: inherit; text-decoration: none; }
         <input class="form-input" id="d-nome" type="text" value="${escHtml(d.nome || '')}" placeholder="Ex.: Operacional" />
       </div>
       <div class="form-group">
-        <label class="form-label">DescriÃ§Ã£o</label>
+        <label class="form-label">Descrição</label>
         <textarea class="form-textarea" id="d-descricao" rows="4">${escHtml(d.descricao || '')}</textarea>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">SLA padrÃ£o em dias</label>
+          <label class="form-label">SLA padrão em dias</label>
           <input class="form-input" id="d-sla" type="number" min="1" value="${escHtml(d.sla_dias || '3')}" />
         </div>
         <div class="form-group">
@@ -3584,7 +3584,7 @@ a { color: inherit; text-decoration: none; }
     document.getElementById('drawer-body').innerHTML = `
       <div class="form-group">
         <label class="form-label">Nome</label>
-        <input class="form-input" id="u-nome" type="text" value="${escHtml(u.nome || '')}" placeholder="Nome do usuÃ¡rio" />
+        <input class="form-input" id="u-nome" type="text" value="${escHtml(u.nome || '')}" placeholder="Nome do usuário" />
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -3592,7 +3592,7 @@ a { color: inherit; text-decoration: none; }
           <input class="form-input" id="u-email" type="email" value="${escHtml(u.email || '')}" placeholder="email@empresa.com" ${u.id ? 'disabled' : ''} />
         </div>
         <div class="form-group">
-          <label class="form-label">PermissÃ£o</label>
+          <label class="form-label">Permissão</label>
           <select class="form-select" id="u-role">
             <option value="visitante"${u.papel==='visitante'?' selected':''}>Visitante</option>
             <option value="analista"${u.papel==='analista'?' selected':''}>Analista</option>
@@ -3613,13 +3613,13 @@ a { color: inherit; text-decoration: none; }
           <label class="form-label">E-mail verificado</label>
           <select class="form-select" id="u-verified">
             <option value="true"${String(u.email_verificado || 'false') === 'true' ? ' selected' : ''}>Sim</option>
-            <option value="false"${String(u.email_verificado || 'false') !== 'true' ? ' selected' : ''}>NÃ£o</option>
+            <option value="false"${String(u.email_verificado || 'false') !== 'true' ? ' selected' : ''}>Não</option>
           </select>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">${u.id ? 'Nova senha opcional' : 'Senha inicial'}</label>
-        <input class="form-input" id="u-password" type="password" placeholder="${u.id ? 'Preencha sÃ³ se quiser trocar' : 'Senha inicial do usuÃ¡rio'}" />
+        <input class="form-input" id="u-password" type="password" placeholder="${u.id ? 'Preencha só se quiser trocar' : 'Senha inicial do usuário'}" />
       </div>
     `;
   }
@@ -3631,15 +3631,15 @@ a { color: inherit; text-decoration: none; }
     const currentValue = responsavelEl.value;
     const options = getTaskResponsibleOptions(selectedTeam, currentValue);
     responsavelEl.innerHTML = `<option value="">Selecione um colaborador</option>${
-      options.map(r => `<option value="${escHtml(r.nome)}"${currentValue===r.nome?' selected':''}>${escHtml(r.nome)}${r.cargo ? ' â€” ' + escHtml(r.cargo) : ''}</option>`).join('')
+      options.map(r => `<option value="${escHtml(r.nome)}"${currentValue===r.nome?' selected':''}>${escHtml(r.nome)}${r.cargo ? ' — ' + escHtml(r.cargo) : ''}</option>`).join('')
     }`;
   }
 
   function renderSubtaskItem(s, i, readOnly = false) {
     return `<div class="subtask-item${s.concluido?' done':''}${readOnly?' read-only':''}" data-si="${i}">
-      <div class="subtask-checkbox${readOnly?' read-only':''}" ${readOnly ? '' : `onclick="toggleSubtask(${i})"`}>${s.concluido?'âœ“':''}</div>
+      <div class="subtask-checkbox${readOnly?' read-only':''}" ${readOnly ? '' : `onclick="toggleSubtask(${i})"`}>${s.concluido?'✓':''}</div>
       <textarea class="subtask-text" rows="1" ${readOnly ? 'readonly' : ''} oninput="autoResizeTA(this);updateSubtaskText(${i},this.value)">${escHtml(s.texto)}</textarea>
-      ${readOnly ? '' : `<button class="subtask-delete" onclick="deleteSubtask(${i})" title="Remover">âœ•</button>`}
+      ${readOnly ? '' : `<button class="subtask-delete" onclick="deleteSubtask(${i})" title="Remover">✕</button>`}
     </div>`;
   }
 
@@ -3677,7 +3677,7 @@ a { color: inherit; text-decoration: none; }
     if (!el) return;
     el.classList.toggle('done');
     const cb = el.querySelector('.subtask-checkbox');
-    cb.textContent = el.classList.contains('done') ? 'âœ“' : '';
+    cb.textContent = el.classList.contains('done') ? '✓' : '';
   }
 
   function updateSubtaskText(i, val) { /* stored on save */ }
@@ -3719,7 +3719,7 @@ a { color: inherit; text-decoration: none; }
       responsavel,
       prazo_conclusao: prazo,
       observacoes: obs,
-      status: statusEl?.dataset.val || App.currentTask.status || 'NÃ£o iniciado',
+      status: statusEl?.dataset.val || App.currentTask.status || 'Não iniciado',
       subtarefas: JSON.stringify(getCurrentSubtasks())
     };
   }
@@ -3729,7 +3729,7 @@ a { color: inherit; text-decoration: none; }
     const input = document.getElementById('task-comment-input');
     const text = input?.value.trim();
     if (!text) {
-      toast('Digite um comentário antes de salvar.', 'warning');
+      toast('Digite um coment�rio antes de salvar.', 'warning');
       return;
     }
     const comment = {
@@ -3747,9 +3747,9 @@ a { color: inherit; text-decoration: none; }
     if (input) input.value = '';
     renderDrawerForm(App.currentTask);
     buildTeamChips(); buildResponsibleChips(); applyFilters(); renderStats(); renderBoard();
-    toast('Comentário salvo com sucesso.', 'success', 1800);
+    toast('Coment�rio salvo com sucesso.', 'success', 1800);
     apiPost({ action: 'addComment', taskId: App.currentTask.id, author: comment.autor, text }).catch(() => {
-      toast('Falha ao sincronizar comentário.', 'warning');
+      toast('Falha ao sincronizar coment�rio.', 'warning');
     });
   }
 
@@ -3760,7 +3760,7 @@ a { color: inherit; text-decoration: none; }
     return saveTask();
   }
 
-  // â”€â”€â”€ SAVE TASK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── SAVE TASK ───────────────────────────────────────────
   async function saveTask() {
     const objetivo    = document.getElementById('f-objetivo')?.value.trim();
     const equipe      = document.getElementById('f-equipe')?.value;
@@ -3768,29 +3768,29 @@ a { color: inherit; text-decoration: none; }
     const prazo       = document.getElementById('f-prazo')?.value;
     const obs         = document.getElementById('f-obs')?.value.trim();
     const statusEl    = document.querySelector('#status-selector .status-opt.selected');
-    const status      = statusEl?.dataset.val || 'NÃ£o iniciado';
+    const status      = statusEl?.dataset.val || 'Não iniciado';
     const subtarefas  = JSON.stringify(getCurrentSubtasks());
 
     if (!objetivo) { toast('Preencha o objetivo da tarefa', 'warning'); return; }
 
-    if (!App.currentTask && !canCreateTask()) { toast('Seu perfil nÃ£o pode criar tarefas.', 'warning'); return; }
-    if (App.currentTask && !canEditTask()) { toast('Seu perfil Ã© somente leitura.', 'warning'); return; }
+    if (!App.currentTask && !canCreateTask()) { toast('Seu perfil não pode criar tarefas.', 'warning'); return; }
+    if (App.currentTask && !canEditTask()) { toast('Seu perfil é somente leitura.', 'warning'); return; }
     const payload = { objetivo, equipe, responsavel, prazo_conclusao: prazo, status, observacoes: obs, subtarefas, comentarios: App.currentTask?.comentarios || '[]' };
 
     try {
       if (App.currentTask) {
-        // â”€â”€ UPDATE: aplica localmente primeiro (otimista) â”€â”€
+        // ── UPDATE: aplica localmente primeiro (otimista) ──
         payload.id           = App.currentTask.id;
         payload.data_criacao = App.currentTask.data_criacao;
         const idx = App.tasks.findIndex(t => t.id === App.currentTask.id);
         if (idx !== -1) App.tasks[idx] = { ...App.currentTask, ...payload };
         closeDrawer();
         buildTeamChips(); buildResponsibleChips(); applyFilters(); renderStats(); renderBoard();
-        toast('Tarefa atualizada! Sincronizandoâ€¦', 'success');
+        toast('Tarefa atualizada! Sincronizando…', 'success');
         // dispara para a API (sem bloquear UI)
         apiPost({ action: 'update', payload }).catch(e => toast('Aviso: sync falhou. Dado salvo localmente.', 'warning'));
       } else {
-        // â”€â”€ CREATE: gera ID local temporÃ¡rio, adiciona, depois API persiste â”€â”€
+        // ── CREATE: gera ID local temporário, adiciona, depois API persiste ──
         const tempId = 'local-' + Date.now();
         const newTask = {
           ...payload,
@@ -3800,8 +3800,8 @@ a { color: inherit; text-decoration: none; }
         App.tasks.unshift(newTask);
         closeDrawer();
         buildTeamChips(); buildResponsibleChips(); applyFilters(); renderStats(); renderBoard();
-        toast('Tarefa criada! Sincronizando com planilhaâ€¦', 'success');
-        // Persiste na API e substitui o ID temporÃ¡rio pelo real
+        toast('Tarefa criada! Sincronizando com planilha…', 'success');
+        // Persiste na API e substitui o ID temporário pelo real
         apiPost({ action: 'create', payload }).then(created => {
           if (created && created.id) {
             const i = App.tasks.findIndex(t => t.id === tempId);
@@ -3815,7 +3815,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   async function saveDepartment() {
-    if (!canManageStructure()) return toast('Seu perfil nÃ£o pode alterar departamentos.', 'warning');
+    if (!canManageStructure()) return toast('Seu perfil não pode alterar departamentos.', 'warning');
     const nome = document.getElementById('d-nome')?.value.trim();
     const descricao = document.getElementById('d-descricao')?.value.trim();
     const sla_dias = document.getElementById('d-sla')?.value.trim() || '3';
@@ -3857,7 +3857,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   async function saveCollaborator() {
-    if (!canManageStructure()) return toast('Seu perfil nÃ£o pode alterar colaboradores.', 'warning');
+    if (!canManageStructure()) return toast('Seu perfil não pode alterar colaboradores.', 'warning');
     const nome = document.getElementById('c-nome')?.value.trim();
     const email = document.getElementById('c-email')?.value.trim();
     const cargo = document.getElementById('c-cargo')?.value.trim();
@@ -3899,15 +3899,15 @@ a { color: inherit; text-decoration: none; }
   }
 
   async function saveUser() {
-    if (!canManageUsers()) return toast('Seu perfil nÃ£o pode gerenciar acessos.', 'warning');
+    if (!canManageUsers()) return toast('Seu perfil não pode gerenciar acessos.', 'warning');
     const nome = document.getElementById('u-nome')?.value.trim();
     const email = document.getElementById('u-email')?.value.trim();
     const papel = document.getElementById('u-role')?.value || 'visitante';
     const ativo = document.getElementById('u-active')?.value || 'true';
     const email_verificado = document.getElementById('u-verified')?.value || 'false';
     const senha = document.getElementById('u-password')?.value || '';
-    if (!nome) return toast('Informe o nome do usuÃ¡rio.', 'warning');
-    if (!App.currentAccessUser && !validateCorporateEmail(email)) return toast('Informe um e-mail vÃ¡lido.', 'warning');
+    if (!nome) return toast('Informe o nome do usuário.', 'warning');
+    if (!App.currentAccessUser && !validateCorporateEmail(email)) return toast('Informe um e-mail válido.', 'warning');
     if (!App.currentAccessUser && senha.length < 8) return toast('A senha inicial deve ter pelo menos 8 caracteres.', 'warning');
 
     try {
@@ -3919,14 +3919,14 @@ a { color: inherit; text-decoration: none; }
         if (idx !== -1) App.users[idx] = { ...App.users[idx], ...updated };
         closeDrawer();
         renderBoard();
-        toast('PermissÃ£o atualizada.', 'success');
+        toast('Permissão atualizada.', 'success');
       } else {
         const payload = { nome, email, papel, ativo, email_verificado, senha };
         const created = await apiPost({ action: 'createUser', payload });
         if (created) App.users.unshift(created);
         closeDrawer();
         renderBoard();
-        toast('UsuÃ¡rio criado com sucesso.', 'success');
+        toast('Usuário criado com sucesso.', 'success');
       }
       updateCounts();
     } catch (e) {
@@ -3941,7 +3941,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   async function deleteCurrentTask() {
-    if (!canCreateTask()) return toast('Seu perfil nÃ£o pode excluir tarefas.', 'warning');
+    if (!canCreateTask()) return toast('Seu perfil não pode excluir tarefas.', 'warning');
     if (!App.currentTask) return;
     if (!confirm(`Excluir a tarefa "${App.currentTask.objetivo}"?`)) return;
     const id = App.currentTask.id;
@@ -3949,11 +3949,11 @@ a { color: inherit; text-decoration: none; }
     toast('Tarefa removida', 'warning');
     closeDrawer();
     buildTeamChips(); buildResponsibleChips(); applyFilters(); renderStats(); renderBoard();
-    apiPost({ action: 'delete', id }).catch(() => toast('Aviso: remoÃ§Ã£o nÃ£o sincronizada com planilha', 'error'));
+    apiPost({ action: 'delete', id }).catch(() => toast('Aviso: remoção não sincronizada com planilha', 'error'));
   }
 
   async function deleteCurrentDepartment() {
-    if (!canManageStructure()) return toast('Seu perfil nÃ£o pode excluir departamentos.', 'warning');
+    if (!canManageStructure()) return toast('Seu perfil não pode excluir departamentos.', 'warning');
     if (!App.currentDepartment) return;
     if (!confirm(`Excluir o departamento "${App.currentDepartment.nome}"?`)) return;
     const hasLinks = App.tasks.some(t => t.equipe === App.currentDepartment.nome) || App.collaborators.some(c => c.departamento === App.currentDepartment.nome);
@@ -3965,11 +3965,11 @@ a { color: inherit; text-decoration: none; }
     App.departments = App.departments.filter(d => d.id !== id);
     closeDrawer();
     buildTeamChips(); buildResponsibleChips(); applyFilters(); renderStats(); renderBoard();
-    apiPost({ action: 'deleteDepartment', id }).catch(() => toast('Aviso: remoÃ§Ã£o nÃ£o sincronizada com planilha', 'error'));
+    apiPost({ action: 'deleteDepartment', id }).catch(() => toast('Aviso: remoção não sincronizada com planilha', 'error'));
   }
 
   async function deleteCurrentCollaborator() {
-    if (!canManageStructure()) return toast('Seu perfil nÃ£o pode excluir colaboradores.', 'warning');
+    if (!canManageStructure()) return toast('Seu perfil não pode excluir colaboradores.', 'warning');
     if (!App.currentCollaborator) return;
     if (!confirm(`Excluir o colaborador "${App.currentCollaborator.nome}"?`)) return;
     const hasLinks = App.tasks.some(t => t.responsavel === App.currentCollaborator.nome);
@@ -3981,10 +3981,10 @@ a { color: inherit; text-decoration: none; }
     App.collaborators = App.collaborators.filter(c => c.id !== id);
     closeDrawer();
     buildResponsibleChips(); applyFilters(); renderStats(); renderBoard();
-    apiPost({ action: 'deleteCollaborator', id }).catch(() => toast('Aviso: remoÃ§Ã£o nÃ£o sincronizada com planilha', 'error'));
+    apiPost({ action: 'deleteCollaborator', id }).catch(() => toast('Aviso: remoção não sincronizada com planilha', 'error'));
   }
 
-  // â”€â”€â”€ API URL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── API URL ─────────────────────────────────────────────
   // This function is no longer needed as the API URL is hardcoded.
   // Keeping it as a placeholder or removing it if the HTML elements are also removed.
   function setApiUrl() {
@@ -3992,12 +3992,12 @@ a { color: inherit; text-decoration: none; }
     // The config-banner will be hidden by default.
   }
 
-  // â”€â”€â”€ TOAST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── TOAST ───────────────────────────────────────────────
   function toast(msg, type = 'info', dur = 3500) {
-    const icons = { success:'âœ…', error:'âŒ', warning:'âš ï¸', info:'â„¹ï¸' };
+    const icons = { success:'✅', error:'❌', warning:'⚠️', info:'ℹ️' };
     const el = document.createElement('div');
     el.className = `toast ${type}`;
-    el.innerHTML = `<span class="toast-icon">${icons[type]||'â€¢'}</span><span class="toast-msg">${escHtml(msg)}</span>`;
+    el.innerHTML = `<span class="toast-icon">${icons[type]||'•'}</span><span class="toast-msg">${escHtml(msg)}</span>`;
     document.getElementById('toast-container').appendChild(el);
     setTimeout(() => {
       el.classList.add('out');
@@ -4005,7 +4005,7 @@ a { color: inherit; text-decoration: none; }
     }, dur);
   }
 
-  // â”€â”€â”€ UTILS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── UTILS ───────────────────────────────────────────────
   function escHtml(s) {
     return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
@@ -4013,29 +4013,29 @@ a { color: inherit; text-decoration: none; }
     return escHtml(s).replace(/'/g, '&#39;');
   }
 
-  // â”€â”€â”€ DEMO DATA (from spreadsheet) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── DEMO DATA (from spreadsheet) ────────────────────────
   const DEMO_TASKS = [
-    { id:'d1', data_criacao:'2026-03-15T00:00:00Z', objetivo:'Finalizar ordens de serviÃ§os de 2025', equipe:'OPERACIONAL', responsavel:'VitÃ³ria Cristina', prazo_conclusao:'2026-04-01', status:'NÃ£o iniciado', observacoes:'Tarefa #94134 link: https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/94134/', subtarefas:'[{"id":1,"texto":"Levantar OS em aberto","concluido":true},{"id":2,"texto":"Validar com setor","concluido":false},{"id":3,"texto":"Fechar registros","concluido":false}]' },
-    { id:'d2', data_criacao:'2026-01-20T00:00:00Z', objetivo:'Treinamento financeiro com time de suporte', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-23', status:'Em andamento', observacoes:'Marcar reuniÃ£o com Gustavo. Trabalhando em parceria com a parametrizaÃ§Ã£o.', subtarefas:'[{"id":1,"texto":"Listar casos crÃ­ticos","concluido":true},{"id":2,"texto":"Preparar material","concluido":true},{"id":3,"texto":"Agendar reuniÃ£o","concluido":false},{"id":4,"texto":"Realizar treinamento","concluido":false}]' },
+    { id:'d1', data_criacao:'2026-03-15T00:00:00Z', objetivo:'Finalizar ordens de serviços de 2025', equipe:'OPERACIONAL', responsavel:'Vitória Cristina', prazo_conclusao:'2026-04-01', status:'Não iniciado', observacoes:'Tarefa #94134 link: https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/94134/', subtarefas:'[{"id":1,"texto":"Levantar OS em aberto","concluido":true},{"id":2,"texto":"Validar com setor","concluido":false},{"id":3,"texto":"Fechar registros","concluido":false}]' },
+    { id:'d2', data_criacao:'2026-01-20T00:00:00Z', objetivo:'Treinamento financeiro com time de suporte', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-23', status:'Em andamento', observacoes:'Marcar reunião com Gustavo. Trabalhando em parceria com a parametrização.', subtarefas:'[{"id":1,"texto":"Listar casos críticos","concluido":true},{"id":2,"texto":"Preparar material","concluido":true},{"id":3,"texto":"Agendar reunião","concluido":false},{"id":4,"texto":"Realizar treinamento","concluido":false}]' },
     { id:'d3', data_criacao:'2026-02-18T00:00:00Z', objetivo:'Treinamento de recadastramento app tv', equipe:'PROCESSO', responsavel:'Eliezer Godoy', prazo_conclusao:'2026-03-14', status:'Em andamento', observacoes:'Tarefa #92488 Link: https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/92488/', subtarefas:'[]' },
-    { id:'d4', data_criacao:'2026-01-20T00:00:00Z', objetivo:'Projeto Atendimento CS â€” definiÃ§Ã£o de limite de reincidÃªncias', equipe:'OPERACIONAL', responsavel:'Fabiano Jean', prazo_conclusao:'2026-04-10', status:'Em pausa', observacoes:'ReuniÃ£o com o SÃ©rgio para definiÃ§Ã£o do limite mensal de reincidÃªncias.', subtarefas:'[{"id":1,"texto":"ReuniÃ£o com SÃ©rgio","concluido":true},{"id":2,"texto":"Avaliar vendas fora do horÃ¡rio","concluido":false}]' },
-    { id:'d5', data_criacao:'2025-10-27T00:00:00Z', objetivo:'Validar diagnÃ³stico de insatisfeito e muito insatisfeito para OS comercial', equipe:'PROCESSO', responsavel:'VitÃ³ria Cristina', prazo_conclusao:'2026-03-31', status:'Em andamento', observacoes:'Tarefa #67620 - pendente. Eliezer informou que atÃ© dia 20/03 quer estar entregando a demanda. https://souuni.bitrix24.com.br/company/personal/user/1422/tasks/task/view/67620/', subtarefas:'[{"id":1,"texto":"Validar ID correto","concluido":false},{"id":2,"texto":"Criar fluxo de disparo","concluido":false},{"id":3,"texto":"Testar integraÃ§Ã£o","concluido":false}]' },
+    { id:'d4', data_criacao:'2026-01-20T00:00:00Z', objetivo:'Projeto Atendimento CS — definição de limite de reincidências', equipe:'OPERACIONAL', responsavel:'Fabiano Jean', prazo_conclusao:'2026-04-10', status:'Em pausa', observacoes:'Reunião com o Sérgio para definição do limite mensal de reincidências.', subtarefas:'[{"id":1,"texto":"Reunião com Sérgio","concluido":true},{"id":2,"texto":"Avaliar vendas fora do horário","concluido":false}]' },
+    { id:'d5', data_criacao:'2025-10-27T00:00:00Z', objetivo:'Validar diagnóstico de insatisfeito e muito insatisfeito para OS comercial', equipe:'PROCESSO', responsavel:'Vitória Cristina', prazo_conclusao:'2026-03-31', status:'Em andamento', observacoes:'Tarefa #67620 - pendente. Eliezer informou que até dia 20/03 quer estar entregando a demanda. https://souuni.bitrix24.com.br/company/personal/user/1422/tasks/task/view/67620/', subtarefas:'[{"id":1,"texto":"Validar ID correto","concluido":false},{"id":2,"texto":"Criar fluxo de disparo","concluido":false},{"id":3,"texto":"Testar integração","concluido":false}]' },
     { id:'d6', data_criacao:'2026-03-12T00:00:00Z', objetivo:'Verificar produtividade por capacidade vs entrega por assunto', equipe:'OPERACIONAL', responsavel:'Paulo Henrique', prazo_conclusao:'2026-03-30', status:'Em andamento', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
-    { id:'d7', data_criacao:'2026-02-03T00:00:00Z', objetivo:'Projeto agendamento matriz e filiais â€” modelo unificado', equipe:'OPERACIONAL', responsavel:'Fabiano Jean', prazo_conclusao:'2026-03-03', status:'Em andamento', observacoes:'Modelo de agendamento: 1 agenda na filial, 2 na matriz em regime 12x36, 1 supervisora', subtarefas:'[{"id":1,"texto":"Definir estrutura","concluido":true},{"id":2,"texto":"Contratar supervisora","concluido":false},{"id":3,"texto":"Implantar agenda","concluido":false}]' },
-    { id:'d8', data_criacao:'2025-12-05T00:00:00Z', objetivo:'Promover PolÃ­tica de Rede Neutra', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2026-01-10', status:'Em andamento', observacoes:'Foi criado o modelo e falta a polÃ­tica, junto com o CRM do suporte.', subtarefas:'[{"id":1,"texto":"Criar modelo","concluido":true},{"id":2,"texto":"Escrever polÃ­tica","concluido":false},{"id":3,"texto":"Integrar CRM","concluido":false},{"id":4,"texto":"Publicar internamente","concluido":false}]' },
-    { id:'d9', data_criacao:'2026-03-10T00:00:00Z', objetivo:'Organizar transmissor e CTO', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2026-03-20', status:'NÃ£o iniciado', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
-    { id:'d10', data_criacao:'2026-03-10T00:00:00Z', objetivo:'Padronizar a VLAM 2000', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-10', status:'NÃ£o iniciado', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
-    { id:'d11', data_criacao:'2026-03-13T00:00:00Z', objetivo:'Aviso de Falha massiva â€” treinar equipe N2', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-19', status:'NÃ£o iniciado', observacoes:'Delegar para o N2. Testar e treinar a equipe do N2 para acionar o cliente. Treinamento Elieser', subtarefas:'[{"id":1,"texto":"Definir script","concluido":false},{"id":2,"texto":"Treinar N2","concluido":false},{"id":3,"texto":"Testar acesso","concluido":false}]' },
-    { id:'d12', data_criacao:'2026-02-23T00:00:00Z', objetivo:'Treinamento para aplicaÃ§Ã£o de preset', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-30', status:'Em andamento', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
-    { id:'d13', data_criacao:'2026-03-02T00:00:00Z', objetivo:'Pesquisa de satisfaÃ§Ã£o â€” pÃ³s atendimento', equipe:'OPERACIONAL', responsavel:'VitÃ³ria Cristina', prazo_conclusao:'2026-03-20', status:'Em andamento', observacoes:'Tarefa #95342. PrevisÃ£o apÃ³s dia 27/03. https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/95342/', subtarefas:'[{"id":1,"texto":"Criar formulÃ¡rio","concluido":true},{"id":2,"texto":"Disparar pesquisa","concluido":false}]' },
-    { id:'d14', data_criacao:'2026-03-13T00:00:00Z', objetivo:'Teste de MigraÃ§Ã£o do NÃºmero Unificado', equipe:'OPERACIONAL', responsavel:'VitÃ³ria Cristina', prazo_conclusao:'2026-03-20', status:'Em andamento', observacoes:'Vai ocorrer dia 24/03. https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/98960/', subtarefas:'[{"id":1,"texto":"Preparar ambiente","concluido":false},{"id":2,"texto":"Realizar migraÃ§Ã£o","concluido":false},{"id":3,"texto":"Validar nÃºmero","concluido":false}]' },
-    { id:'d15', data_criacao:'2026-03-09T00:00:00Z', objetivo:'Preset padrÃ£o â€” configuraÃ§Ã£o roteadores', equipe:'OPERACIONAL', responsavel:'Paulo Henrique', prazo_conclusao:'2026-03-18', status:'Em andamento', observacoes:'https://souuni.bitrix24.com.br/company/personal/user/896/tasks/task/view/97688/', subtarefas:'[]' },
+    { id:'d7', data_criacao:'2026-02-03T00:00:00Z', objetivo:'Projeto agendamento matriz e filiais — modelo unificado', equipe:'OPERACIONAL', responsavel:'Fabiano Jean', prazo_conclusao:'2026-03-03', status:'Em andamento', observacoes:'Modelo de agendamento: 1 agenda na filial, 2 na matriz em regime 12x36, 1 supervisora', subtarefas:'[{"id":1,"texto":"Definir estrutura","concluido":true},{"id":2,"texto":"Contratar supervisora","concluido":false},{"id":3,"texto":"Implantar agenda","concluido":false}]' },
+    { id:'d8', data_criacao:'2025-12-05T00:00:00Z', objetivo:'Promover Política de Rede Neutra', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2026-01-10', status:'Em andamento', observacoes:'Foi criado o modelo e falta a política, junto com o CRM do suporte.', subtarefas:'[{"id":1,"texto":"Criar modelo","concluido":true},{"id":2,"texto":"Escrever política","concluido":false},{"id":3,"texto":"Integrar CRM","concluido":false},{"id":4,"texto":"Publicar internamente","concluido":false}]' },
+    { id:'d9', data_criacao:'2026-03-10T00:00:00Z', objetivo:'Organizar transmissor e CTO', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2026-03-20', status:'Não iniciado', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
+    { id:'d10', data_criacao:'2026-03-10T00:00:00Z', objetivo:'Padronizar a VLAM 2000', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-10', status:'Não iniciado', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
+    { id:'d11', data_criacao:'2026-03-13T00:00:00Z', objetivo:'Aviso de Falha massiva — treinar equipe N2', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-19', status:'Não iniciado', observacoes:'Delegar para o N2. Testar e treinar a equipe do N2 para acionar o cliente. Treinamento Elieser', subtarefas:'[{"id":1,"texto":"Definir script","concluido":false},{"id":2,"texto":"Treinar N2","concluido":false},{"id":3,"texto":"Testar acesso","concluido":false}]' },
+    { id:'d12', data_criacao:'2026-02-23T00:00:00Z', objetivo:'Treinamento para aplicação de preset', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-30', status:'Em andamento', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
+    { id:'d13', data_criacao:'2026-03-02T00:00:00Z', objetivo:'Pesquisa de satisfação — pós atendimento', equipe:'OPERACIONAL', responsavel:'Vitória Cristina', prazo_conclusao:'2026-03-20', status:'Em andamento', observacoes:'Tarefa #95342. Previsão após dia 27/03. https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/95342/', subtarefas:'[{"id":1,"texto":"Criar formulário","concluido":true},{"id":2,"texto":"Disparar pesquisa","concluido":false}]' },
+    { id:'d14', data_criacao:'2026-03-13T00:00:00Z', objetivo:'Teste de Migração do Número Unificado', equipe:'OPERACIONAL', responsavel:'Vitória Cristina', prazo_conclusao:'2026-03-20', status:'Em andamento', observacoes:'Vai ocorrer dia 24/03. https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/98960/', subtarefas:'[{"id":1,"texto":"Preparar ambiente","concluido":false},{"id":2,"texto":"Realizar migração","concluido":false},{"id":3,"texto":"Validar número","concluido":false}]' },
+    { id:'d15', data_criacao:'2026-03-09T00:00:00Z', objetivo:'Preset padrão — configuração roteadores', equipe:'OPERACIONAL', responsavel:'Paulo Henrique', prazo_conclusao:'2026-03-18', status:'Em andamento', observacoes:'https://souuni.bitrix24.com.br/company/personal/user/896/tasks/task/view/97688/', subtarefas:'[]' },
     { id:'d16', data_criacao:'2025-07-04T00:00:00Z', objetivo:'Fazer visita na filial de Ouro Preto para alinhamento comportamental', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2025-07-09', status:'Finalizado', observacoes:'', subtarefas:'[]' },
-    { id:'d17', data_criacao:'2025-06-30T00:00:00Z', objetivo:'Indicadores de OperaÃ§Ã£o do MÃªs de Junho', equipe:'GERENTES', responsavel:'NÃºbia Petsch', prazo_conclusao:'2025-07-03', status:'Finalizado', observacoes:'No inÃ­cio a gerente nÃ£o achou necessÃ¡rio realizar o andamento dos indicadores no mÃªs.', subtarefas:'[{"id":1,"texto":"Coletar dados","concluido":true},{"id":2,"texto":"Montar planilha","concluido":true},{"id":3,"texto":"Apresentar","concluido":true}]' },
-    { id:'d18', data_criacao:'2025-09-09T00:00:00Z', objetivo:'ImplementaÃ§Ã£o do IClass â€” treinamento e implantaÃ§Ã£o', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2025-10-22', status:'Finalizado', observacoes:'Dia 21/10 implantaÃ§Ã£o iniciada com sucesso.', subtarefas:'[{"id":1,"texto":"Treinamento Backoffice","concluido":true},{"id":2,"texto":"Treinamento equipe tÃ©cnica","concluido":true},{"id":3,"texto":"ImplantaÃ§Ã£o","concluido":true}]' },
+    { id:'d17', data_criacao:'2025-06-30T00:00:00Z', objetivo:'Indicadores de Operação do Mês de Junho', equipe:'GERENTES', responsavel:'Núbia Petsch', prazo_conclusao:'2025-07-03', status:'Finalizado', observacoes:'No início a gerente não achou necessário realizar o andamento dos indicadores no mês.', subtarefas:'[{"id":1,"texto":"Coletar dados","concluido":true},{"id":2,"texto":"Montar planilha","concluido":true},{"id":3,"texto":"Apresentar","concluido":true}]' },
+    { id:'d18', data_criacao:'2025-09-09T00:00:00Z', objetivo:'Implementação do IClass — treinamento e implantação', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2025-10-22', status:'Finalizado', observacoes:'Dia 21/10 implantação iniciada com sucesso.', subtarefas:'[{"id":1,"texto":"Treinamento Backoffice","concluido":true},{"id":2,"texto":"Treinamento equipe técnica","concluido":true},{"id":3,"texto":"Implantação","concluido":true}]' },
   ];
 
-  // â”€â”€â”€ INIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ─── INIT ─────────────────────────────────────────────────
   (function init() {
     // The API URL is now hardcoded, so we hide the config banner directly.
     document.getElementById('config-banner').style.display = 'none';
