@@ -1825,7 +1825,7 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Prazo de Conclusão</label>
+            <label class="form-label">Prazo</label>
             <input class="form-input" id="f-prazo" type="date" value="${t.prazo_conclusao||''}" ${readOnlyTask ? 'disabled' : ''} />
           </div>
           <div class="form-group">
