@@ -1123,14 +1123,16 @@
       </div>` : '';
 
     return `<div class="task-card" data-id="${t.id}" data-urgency="${u}">
-      <div class="card-top">
-        <div class="card-urgency-tag urgency-${u}">${label}</div>
-      </div>
-      <div class="card-title">${escHtml(t.objetivo)}</div>
-      <div class="card-meta">
-        <div class="card-avatar">${initials}</div>
+      <div class="card-main">
+        <div class="card-top">
+          <div class="card-urgency-tag urgency-${u}">${label}</div>
+        </div>
+        <div class="card-title">${escHtml(t.objetivo)}</div>
+        <div class="card-meta">
+          <div class="card-avatar">${initials}</div>
         <div class="card-responsible">${escHtml(t.responsavel || '—')}</div>
-        <div class="card-date"><i data-lucide="calendar-days" class="icon icon-sm"></i>${prazoStr}</div>
+          <div class="card-date"><i data-lucide="calendar-days" class="icon icon-sm"></i>${prazoStr}</div>
+        </div>
       </div>
       ${comments.length ? `<div class="management-meta" style="margin-top:10px"><span class="meta-pill"><i data-lucide="messages-square" class="icon icon-sm"></i>${comments.length} comentário${comments.length > 1 ? 's' : ''}</span></div>` : ''}
       ${progBar}
@@ -1774,6 +1776,7 @@
 
     const prog = subs.length ? progressInfo(t) : null;
     const prazoFormatado = t.prazo_conclusao ? new Date(t.prazo_conclusao).toLocaleDateString('pt-BR') : 'Sem prazo';
+    const dataCriacaoFormatada = t.data_criacao ? new Date(t.data_criacao).toLocaleString('pt-BR') : 'Será registrada ao salvar';
     const comentarioCount = comments.length;
 
     document.getElementById('drawer-body').innerHTML = `
@@ -1786,6 +1789,10 @@
       <div class="drawer-tab-panel${currentTab === 'overview' ? '' : ' view-hidden'}" data-tab="overview">
         ${t.id ? `
           <div class="drawer-overview">
+            <div class="drawer-pill">
+              <div class="drawer-pill-label">Criação</div>
+              <div class="drawer-pill-value">${escHtml(dataCriacaoFormatada)}</div>
+            </div>
             <div class="drawer-pill">
               <div class="drawer-pill-label">Prazo</div>
               <div class="drawer-pill-value">${escHtml(prazoFormatado)}</div>
