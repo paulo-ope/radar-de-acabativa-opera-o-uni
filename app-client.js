@@ -1757,6 +1757,51 @@
     return options;
   };
 
+  const formatTaskDate = (value, fallback = 'Sem prazo') => {
+    if (!value) return fallback;
+    const parsed = new Date(value);
+    if (isNaN(parsed.getTime())) return fallback;
+    return parsed.toLocaleDateString('pt-BR');
+  };
+
+  const formatDateInputValue = (value) => {
+    if (!value) return '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(String(value))) return String(value);
+    const parsed = new Date(value);
+    if (isNaN(parsed.getTime())) return '';
+    const year = parsed.getFullYear();
+    const month = String(parsed.getMonth() + 1).padStart(2, '0');
+    const day = String(parsed.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const normalizeDueDateInput = (value) => {
+    const raw = String(value || '').trim();
+    if (!raw) return '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+    const brMatch = raw.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (brMatch) {
+      const [, day, month, year] = brMatch;
+      const iso = `${year}-${month}-${day}`;
+      const parsed = new Date(`${iso}T00:00:00`);
+      if (!isNaN(parsed.getTime())) return iso;
+      return null;
+    }
+    const parsed = new Date(raw);
+    if (isNaN(parsed.getTime())) return null;
+    const year = parsed.getFullYear();
+    const month = String(parsed.getMonth() + 1).padStart(2, '0');
+    const day = String(parsed.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const applyDueDateMask = (value) => {
+    const digits = String(value || '').replace(/\D/g, '').slice(0, 8);
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+    return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4)}`;
+  };
+
   const renderDrawerForm = (task) => {
     const t = task || {};
     const readOnlyTask = !!t.id && !canEditTask();
@@ -1775,7 +1820,9 @@
     const responsaveis = getTaskResponsibleOptions(t.equipe, t.responsavel);
 
     const prog = subs.length ? progressInfo(t) : null;
-    const prazoFormatado = t.prazo_conclusao ? new Date(t.prazo_conclusao).toLocaleDateString('pt-BR') : 'Sem prazo';
+    const prazoFormatado = formatTaskDate(t.prazo_conclusao);
+    const prazoInputValue = formatTaskDate(t.prazo_conclusao, '');
+    const prazoNativeValue = formatDateInputValue(t.prazo_conclusao);
     const dataCriacaoFormatada = t.data_criacao ? new Date(t.data_criacao).toLocaleString('pt-BR') : 'Será registrada ao salvar';
     const comentarioCount = comments.length;
 
@@ -1826,7 +1873,11 @@
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Prazo</label>
-            <input class="form-input" id="f-prazo" type="date" value="${t.prazo_conclusao||''}" ${readOnlyTask ? 'disabled' : ''} />
+            <div class="date-input-shell">
+              <input class="form-input" id="f-prazo" type="text" inputmode="numeric" placeholder="dd/mm/aaaa" value="${prazoInputValue}" ${readOnlyTask ? 'disabled' : ''} />
+              <button class="btn-icon date-picker-btn" type="button" tabindex="-1" aria-hidden="true"><i data-lucide="calendar-days" class="icon"></i></button>
+              <input class="date-native-input" id="f-prazo-native" type="date" value="${prazoNativeValue}" ${readOnlyTask ? 'disabled' : ''} />
+            </div>
           </div>
           <div class="form-group">
             <label class="form-label">Status</label>
@@ -1883,6 +1934,9 @@
 
     refreshSubtaskEvents();
     document.getElementById('f-equipe')?.addEventListener('change', onTaskDepartmentChange);
+    document.getElementById('f-prazo')?.addEventListener('input', syncTaskDueDateTextInput);
+    document.getElementById('f-prazo-native')?.addEventListener('input', syncTaskDueDateNativeInput);
+    document.getElementById('f-prazo-native')?.addEventListener('change', syncTaskDueDateNativeInput);
     setDrawerTab(currentTab);
     renderIcons();
   };
@@ -2005,6 +2059,24 @@
     responsavelEl.innerHTML = `<option value="">Selecione um colaborador</option>${
       options.map(r => `<option value="${escHtml(r.nome)}"${currentValue===r.nome?' selected':''}>${escHtml(r.nome)}${r.cargo ? ' — ' + escHtml(r.cargo) : ''}</option>`).join('')
     }`;
+  };
+
+  const syncTaskDueDateTextInput = (event) => {
+    const input = event?.target || document.getElementById('f-prazo');
+    const nativeInput = document.getElementById('f-prazo-native');
+    if (!input) return;
+    const masked = applyDueDateMask(input.value);
+    input.value = masked;
+    if (!nativeInput) return;
+    const normalized = normalizeDueDateInput(masked);
+    nativeInput.value = normalized && normalized !== null ? normalized : '';
+  };
+
+  const syncTaskDueDateNativeInput = (event) => {
+    const nativeInput = event?.target || document.getElementById('f-prazo-native');
+    const textInput = document.getElementById('f-prazo');
+    if (!nativeInput || !textInput) return;
+    textInput.value = formatTaskDate(nativeInput.value, '');
   };
 
   const renderSubtaskItem = (s, i, readOnly = false) => {
@@ -2203,14 +2275,16 @@
     const objetivo    = document.getElementById('f-objetivo')?.value.trim();
     const equipe      = document.getElementById('f-equipe')?.value;
     const responsavel = document.getElementById('f-responsavel')?.value.trim();
-    const prazo       = document.getElementById('f-prazo')?.value;
+    const prazoRaw    = document.getElementById('f-prazo')?.value;
     const obs         = document.getElementById('f-obs')?.value.trim();
     const statusEl    = document.querySelector('#status-selector .status-opt.selected');
     const status      = statusEl?.dataset.val || 'Não iniciado';
     const subtarefas  = JSON.stringify(getCurrentSubtasks());
     const commentText = document.getElementById('task-comment-input')?.value.trim() || '';
+    const prazo       = normalizeDueDateInput(prazoRaw);
 
     if (!objetivo) return toast('Preencha o objetivo da tarefa', 'warning');
+    if (prazo === null) return toast('Informe o prazo em formato valido, como 20/04/2026.', 'warning');
     if (!App.currentTask && !canCreateTask()) return toast('Seu perfil não pode criar tarefas.', 'warning');
     if (App.currentTask && !canEditTask() && !commentText) return toast('Seu perfil pode comentar, mas não editar a tarefa.', 'warning');
 
