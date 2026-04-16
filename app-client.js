@@ -2485,6 +2485,7 @@
     if (!nome) return toast('Informe o nome do usuário.', 'warning');
     if (!App.currentAccessUser && !validateCorporateEmail(email)) return toast('Informe um e-mail válido.', 'warning');
     if (!App.currentAccessUser && senha.length < 8) return toast('A senha inicial deve ter pelo menos 8 caracteres.', 'warning');
+    if (App.currentAccessUser && senha && senha.length < 8) return toast('A nova senha deve ter pelo menos 8 caracteres.', 'warning');
 
     try {
       if (App.currentAccessUser) {
