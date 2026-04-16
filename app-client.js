@@ -362,6 +362,30 @@
       renderIcons();
       return;
     }
+    if (mode === 'verify') {
+      title.textContent = 'Verificar e-mail';
+      copy.textContent = 'No primeiro acesso, confirme o código enviado ao e-mail cadastrado antes de entrar no radar.';
+      form.innerHTML = `
+        <div class="auth-form-card">
+          <div class="auth-input-wrap">
+            <label class="auth-form-label">E-mail cadastrado</label>
+            <input class="form-input" id="auth-email" type="email" placeholder="seu.email@empresa.com" value="${escAttr(payload.email || '')}" />
+          </div>
+          <div class="auth-input-wrap">
+            <label class="auth-form-label">Código de verificação</label>
+            <input class="form-input" id="auth-code" type="text" placeholder="Código de 6 dígitos" />
+          </div>
+          <div class="auth-actions" style="margin-top:14px">
+            <button class="btn-save" onclick="verifyEmailFlow()"><span class="btn-content"><i data-lucide="shield-check" class="icon"></i>Validar e-mail</span></button>
+            <button class="btn-outline" onclick="sendEmailVerificationFlow()">Reenviar código</button>
+          </div>
+        </div>
+        <div class="auth-link" onclick="showAuthShell('login')">Voltar para login</div>
+      `;
+      bindAuthKeyboard('verify');
+      renderIcons();
+      return;
+    }
     title.textContent = 'Entrar';
     copy.textContent = 'Use suas credenciais já cadastradas para acessar o radar.';
     form.innerHTML = `
@@ -403,6 +427,7 @@
       if (mode === 'login') loginFlow();
       if (mode === 'reset') resetPasswordFlow();
       if (mode === 'forgot') requestPasswordResetFlow();
+      if (mode === 'verify') verifyEmailFlow();
     };
   };
 
@@ -434,6 +459,10 @@
   };
 
   const validateCorporateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || '').trim());
+  const isEmailVerificationError = (message) => {
+    const text = String(message || '').toLowerCase();
+    return text.includes('não foi verificado') || text.includes('nao foi verificado');
+  };
 
   const isSessionConflictError = (message) => {
     const text = String(message || '').toLowerCase();
@@ -478,6 +507,11 @@
       try {
         data = await executeLogin(email, password, false);
       } catch (e) {
+        if (isEmailVerificationError(e?.message)) {
+          showAuthShell('verify', { email });
+          toast('Seu e-mail ainda não foi verificado. Digite o código enviado para concluir o primeiro acesso.', 'warning', 5000);
+          return;
+        }
         if (!isSessionConflictError(e?.message)) throw e;
         const confirmed = confirm('Este usuario ja esta logado em outro dispositivo. Continuar e desconectar a outra sessao?');
         if (!confirmed) return;
@@ -666,6 +700,35 @@
     } catch (_) {
     } finally {
       App.autoRefreshInFlight = false;
+    }
+  };
+
+  const sendEmailVerificationFlow = async () => {
+    const email = document.getElementById('auth-email')?.value.trim();
+    if (!validateCorporateEmail(email)) return toast('Informe um e-mail válido.', 'warning');
+    try {
+      await callPublicAuth('sendEmailVerification', { email });
+      toast('Código de verificação enviado.', 'success', 4000);
+      showAuthShell('verify', { email });
+    } catch (e) {
+      toast('Não foi possível enviar o código: ' + e.message, 'error', 5000);
+    }
+  };
+
+  const verifyEmailFlow = async () => {
+    const email = document.getElementById('auth-email')?.value.trim();
+    const code = document.getElementById('auth-code')?.value.trim();
+    if (!validateCorporateEmail(email)) return toast('Informe um e-mail válido.', 'warning');
+    if (!code) return toast('Informe o código de verificação.', 'warning');
+    try {
+      await callPublicAuth('verifyEmail', { email, code });
+      toast('E-mail verificado com sucesso. Agora você já pode entrar.', 'success', 4500);
+      showAuthShell('login');
+      const emailEl = document.getElementById('auth-email');
+      if (emailEl) emailEl.value = email;
+      document.getElementById('auth-password')?.focus();
+    } catch (e) {
+      toast('Não foi possível validar o código: ' + e.message, 'error', 5000);
     }
   };
 
@@ -2586,12 +2649,14 @@
     requestPasswordResetFlow,
     resetPasswordFlow,
     saveCurrentEntity,
+    sendEmailVerificationFlow,
     selectStatus,
     setApiUrl,
     setDrawerTab,
     showAuthShell,
     switchView,
     syncPendingComment,
+    verifyEmailFlow,
     toggleAuthPassword,
     toggleDepartmentFilters,
     toggleLegacyOnly,
