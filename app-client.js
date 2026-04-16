@@ -1756,7 +1756,7 @@
     App.currentCollaborator = null;
     App.currentAccessUser = id ? JSON.parse(JSON.stringify(App.users.find(u => String(u.id) === String(id)) || null)) : null;
     document.getElementById('drawer-title').textContent = App.currentAccessUser ? 'Editar Acesso' : 'Novo Usuário';
-    document.getElementById('btn-delete-task').style.display = 'none';
+    document.getElementById('btn-delete-task').style.display = App.currentAccessUser ? '' : 'none';
     renderUserDrawerForm(App.currentAccessUser);
     openDrawer();
   };
@@ -1789,7 +1789,7 @@
     const canDelete = App.drawerMode === 'task'
       ? canDeleteTask()
       : App.drawerMode === 'user'
-        ? false
+        ? canManageUsers()
         : canManageStructure();
     saveBtn.style.display = canSave ? '' : 'none';
     if (deleteBtn.style.display !== 'none') deleteBtn.style.display = canDelete ? '' : 'none';
@@ -2517,6 +2517,7 @@
   };
 
   const deleteCurrentEntity = async () => {
+    if (App.drawerMode === 'user') return deleteCurrentUser();
     if (App.drawerMode === 'department') return deleteCurrentDepartment();
     if (App.drawerMode === 'collaborator') return deleteCurrentCollaborator();
     return deleteCurrentTask();
@@ -2584,6 +2585,38 @@
     closeDrawer();
     syncAppChrome();
     apiPost({ action: 'deleteCollaborator', id }, { background: true }).catch(() => toast('Aviso: remoção não sincronizada com planilha', 'error'));
+  };
+
+  const deleteCurrentUser = async () => {
+    if (!canManageUsers()) return toast('Seu perfil não pode gerenciar acessos.', 'warning');
+    if (!App.currentAccessUser) return;
+    if (String(App.currentAccessUser.id) === String(App.currentUser?.id)) {
+      toast('Você não pode excluir o próprio acesso enquanto está logado.', 'warning', 4500);
+      return;
+    }
+    const confirmed = await requestConfirm({
+      title: 'Excluir acesso',
+      message: `O acesso de "${App.currentAccessUser.nome || App.currentAccessUser.email}" será removido permanentemente.`,
+      confirmLabel: 'Excluir'
+    });
+    if (!confirmed) return;
+
+    try {
+      await apiPost({ action: 'deleteUser', id: App.currentAccessUser.id });
+      App.users = App.users.filter(u => String(u.id) !== String(App.currentAccessUser.id));
+      closeDrawer();
+      persistBootstrapCache({
+        tasks: App.tasks,
+        departments: App.departments,
+        collaborators: App.collaborators,
+        users: App.users,
+        currentUser: App.currentUser
+      });
+      syncAppChrome();
+      toast('Acesso excluído com sucesso.', 'success');
+    } catch (e) {
+      toast('Erro ao excluir acesso: ' + e.message, 'error', 5000);
+    }
   };
 
   const setApiUrl = () => {};
