@@ -64,18 +64,50 @@
     indicators: { title: 'Indicadores', action: '', sectionActions: false },
   };
 
+  const parseLocalDate = (value) => {
+    if (!value) return null;
+    const raw = String(value).trim();
+    const isoMatch = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (isoMatch) {
+      const [, year, month, day] = isoMatch;
+      return new Date(Number(year), Number(month) - 1, Number(day));
+    }
+    const parsed = new Date(raw);
+    return isNaN(parsed.getTime()) ? null : parsed;
+  };
+
+  const normalizeTaskStatus = (status) => {
+    const raw = String(status || '').trim();
+    const normalized = raw
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+    if (normalized.startsWith('finalizado')) return 'Finalizado';
+    if (normalized === 'em andamento') return 'Em andamento';
+    if (normalized === 'em pausa') return 'Em pausa';
+    return 'Não iniciado';
+  };
+
+  const isFinishedStatus = (status) => normalizeTaskStatus(status) === 'Finalizado';
+
+  const getFinishedStatusLabel = (task) => {
+    const status = String(task?.status || '').trim();
+    if (status === 'Finalizado no prazo' || status === 'Finalizado em atraso') return status;
+    return 'Finalizado';
+  };
+
   const getUrgency = (task) => {
-    const status = (task.status || '').toLowerCase();
-    if (status.includes('finalizado')) return 'concluido';
-    if (status.includes('pausa')) return 'pausado';
+    const status = normalizeTaskStatus(task.status);
+    if (status === 'Finalizado') return 'concluido';
+    if (status === 'Em pausa') return 'pausado';
     if (!task.prazo_conclusao) return 'futuro';
     
     const today = new Date(); 
     today.setHours(0, 0, 0, 0);
-    const prazo = new Date(task.prazo_conclusao); 
+    const prazo = parseLocalDate(task.prazo_conclusao);
+    if (!prazo) return 'futuro';
     prazo.setHours(0, 0, 0, 0);
-    
-    if (isNaN(prazo)) return 'futuro';
+
     if (prazo < today) return 'atrasado';
     if (prazo.getTime() === today.getTime()) return 'hoje';
     return 'futuro';
@@ -821,19 +853,19 @@
   };
 
   const refreshData = async () => {
-    toast('Atualizando dados…', 'info');
+    toast('Atualizando dados...', 'info');
     await loadTasks();
   };
 
   const applyFilters = () => {
     App.filteredTasks = App.tasks.filter(t => {
       const u = getUrgency(t);
-      const statuses = App.filters.statuses.map(v => v.toLowerCase());
+      const statuses = App.filters.statuses.map(v => normalizeTaskStatus(v));
       const teams = App.filters.teams;
       const urgencies = App.filters.urgencies;
       const responsibles = App.filters.responsibles;
       const q = (App.filters.search || '').toLowerCase();
-      const status = (t.status || '').toLowerCase();
+      const status = normalizeTaskStatus(t.status);
       const objetivo = (t.objetivo || '').toLowerCase();
       const responsavel = (t.responsavel || '').toLowerCase();
       const team = String(t.equipe || '');
@@ -1099,7 +1131,7 @@
         <div class="stat-icon" style="background:var(--purple-dim);font-size:18px">🏢</div>
         <div class="stat-value" style="color:var(--purple)">${departamentosAtivos}</div>
         <div class="stat-label">Departamentos</div>
-        <div class="stat-trend">Com SLA configuravel</div>
+        <div class="stat-trend">Com SLA configurável</div>
       </div>
     `;
   };
@@ -1132,7 +1164,7 @@
     const byCol = {};
     COLUMNS.forEach(c => byCol[c.id] = []);
     App.filteredTasks.forEach(t => {
-      const col = byCol[t.status];
+      const col = byCol[normalizeTaskStatus(t.status)];
       if (col) col.push(t);
     });
 
@@ -1168,9 +1200,9 @@
 
   const renderTaskCard = (t) => {
     const u = getUrgency(t);
-    const label = urgencyLabel(u);
+    const label = isFinishedStatus(t.status) ? getFinishedStatusLabel(t) : urgencyLabel(u);
     const initials = (t.responsavel || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
-    const prazoStr = t.prazo_conclusao ? new Date(t.prazo_conclusao).toLocaleDateString('pt-BR') : '—';
+    const prazoStr = formatTaskDate(t.prazo_conclusao, '—');
     const prog = progressInfo(t) || null;
     const comments = parseJsonSafe(t.comentarios);
     
@@ -1215,16 +1247,16 @@
       </tr></thead>
       <tbody>${App.filteredTasks.map(t => {
         const u = getUrgency(t);
-        const label = urgencyLabel(u);
-        const prazoStr = t.prazo_conclusao ? new Date(t.prazo_conclusao).toLocaleDateString('pt-BR') : '—';
-        const stCls = 'tag-status-' + (t.status || 'Não iniciado').toLowerCase().replace(/ /g,'-').replace('ã','a').replace('é','e').replace('ó','o').replace('í','i');
+        const label = isFinishedStatus(t.status) ? getFinishedStatusLabel(t) : urgencyLabel(u);
+        const prazoStr = formatTaskDate(t.prazo_conclusao, '—');
+        const stCls = 'tag-status-' + normalizeTaskStatus(t.status || 'Não iniciado').toLowerCase().replace(/ /g,'-').replace('ã','a').replace('é','e').replace('ó','o').replace('í','i');
         return `<tr class="task-row" data-id="${t.id}">
           <td class="cell-title"><div class="cell-title-text">${escHtml(t.objetivo)}</div></td>
           <td><span class="tag tag-equipe">${escHtml(t.equipe || '—')}</span></td>
           <td style="color:var(--text-secondary);font-size:0.78rem">${escHtml(t.responsavel || '—')}</td>
           <td style="color:var(--text-muted);font-size:0.78rem">${prazoStr}</td>
           <td><span class="tag ${stCls}">${escHtml(t.status)}</span></td>
-          <td><span style="font-size:0.78rem">${label}</span>${parseJsonSafe(t.comentarios).length ? `<div class="management-subtitle">💬 ${parseJsonSafe(t.comentarios).length}</div>` : ''}</td>
+          <td><span style="font-size:0.78rem">${label}</span>${parseJsonSafe(t.comentarios).length ? `<div class="management-subtitle">• ${parseJsonSafe(t.comentarios).length}</div>` : ''}</td>
         </tr>`;
       }).join('')}</tbody>
     </table></div>`;
@@ -1243,11 +1275,11 @@
   const getDepartmentMetrics = (depName) => {
     const tasks = App.tasks.filter(t => t.equipe === depName);
     const metrics = tasks.reduce((acc, t) => {
-      const status = (t.status || '').toLowerCase();
-      if (status === 'não iniciado') acc.statuses.naoIniciado++;
-      else if (status === 'em andamento') acc.statuses.andamento++;
-      else if (status === 'em pausa') acc.statuses.pausa++;
-      else if (status === 'finalizado') acc.statuses.finalizado++;
+      const status = normalizeTaskStatus(t.status);
+      if (status === 'Não iniciado') acc.statuses.naoIniciado++;
+      else if (status === 'Em andamento') acc.statuses.andamento++;
+      else if (status === 'Em pausa') acc.statuses.pausa++;
+      else if (status === 'Finalizado') acc.statuses.finalizado++;
       
       const urgency = getUrgency(t);
       if (urgency === 'atrasado') acc.atrasadas++;
@@ -1323,7 +1355,7 @@
     );
     container.innerHTML = `${hero}<div class="management-grid">${items.map(c => {
       const totalTasks = App.tasks.filter(t => t.responsavel === c.nome).length;
-      const finished = App.tasks.filter(t => t.responsavel === c.nome && t.status === 'Finalizado').length;
+      const finished = App.tasks.filter(t => t.responsavel === c.nome && isFinishedStatus(t.status)).length;
       const delayed = App.tasks.filter(t => t.responsavel === c.nome && getUrgency(t) === 'atrasado').length;
       const initials = String(c.nome || '?').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
       return `
@@ -1531,10 +1563,10 @@
           </div>
           <div class="panel-card">
             <div class="panel-card-title">Distribuição por status</div>
-            <div class="metric-row"><span class="metric-name">Não iniciado</span><span class="metric-value">${App.tasks.filter(t => t.status === 'Não iniciado').length}</span></div>
-            <div class="metric-row"><span class="metric-name">Em andamento</span><span class="metric-value">${App.tasks.filter(t => t.status === 'Em andamento').length}</span></div>
-            <div class="metric-row"><span class="metric-name">Em pausa</span><span class="metric-value">${App.tasks.filter(t => t.status === 'Em pausa').length}</span></div>
-            <div class="metric-row"><span class="metric-name">Finalizado</span><span class="metric-value" style="color:var(--green)">${App.tasks.filter(t => t.status === 'Finalizado').length}</span></div>
+            <div class="metric-row"><span class="metric-name">Não iniciado</span><span class="metric-value">${App.tasks.filter(t => normalizeTaskStatus(t.status) === 'Não iniciado').length}</span></div>
+            <div class="metric-row"><span class="metric-name">Em andamento</span><span class="metric-value">${App.tasks.filter(t => normalizeTaskStatus(t.status) === 'Em andamento').length}</span></div>
+            <div class="metric-row"><span class="metric-name">Em pausa</span><span class="metric-value">${App.tasks.filter(t => normalizeTaskStatus(t.status) === 'Em pausa').length}</span></div>
+            <div class="metric-row"><span class="metric-name">Finalizado</span><span class="metric-value" style="color:var(--green)">${App.tasks.filter(t => isFinishedStatus(t.status)).length}</span></div>
             <div class="table-note">Leitura baseada no prazo de conclusão da tarefa e na estrutura atual de departamentos.</div>
           </div>
         </div>
@@ -1552,7 +1584,7 @@
       if (!t.responsavel) return acc;
       if (!acc[t.responsavel]) acc[t.responsavel] = { total: 0, concluidas: 0, atrasadas: 0 };
       acc[t.responsavel].total++;
-      if ((t.status || '').includes('Finalizado')) acc[t.responsavel].concluidas++;
+      if (isFinishedStatus(t.status)) acc[t.responsavel].concluidas++;
       if (getUrgency(t) === 'atrasado') acc[t.responsavel].atrasadas++;
       return acc;
     }, {});
@@ -1566,8 +1598,8 @@
       if (!acc[t.equipe]) acc[t.equipe] = { total: 0, atrasadas: 0, andamento: 0, finalizado: 0 };
       acc[t.equipe].total++;
       if (getUrgency(t) === 'atrasado') acc[t.equipe].atrasadas++;
-      if (t.status === 'Em andamento') acc[t.equipe].andamento++;
-      if (t.status === 'Finalizado') acc[t.equipe].finalizado++;
+      if (normalizeTaskStatus(t.status) === 'Em andamento') acc[t.equipe].andamento++;
+      if (isFinishedStatus(t.status)) acc[t.equipe].finalizado++;
       return acc;
     }, {});
     const topEquipes = Object.entries(equipesMap)
@@ -1581,7 +1613,7 @@
       [
         { value: topResponsaveis.length, label: 'Responsáveis monitorados', color: 'var(--accent)' },
         { value: bestKpi ? `${bestKpi.kpi}%` : '0%', label: 'Melhor KPI individual', color: 'var(--green)' },
-        { value: scopedTasks.filter(t => t.status === 'Em andamento').length, label: 'Tarefas em execução', color: 'var(--yellow)' }
+        { value: scopedTasks.filter(t => normalizeTaskStatus(t.status) === 'Em andamento').length, label: 'Tarefas em execução', color: 'var(--yellow)' }
       ],
       [
         { label: 'Destaque individual', value: bestKpi?.nome || '—', color: 'var(--green)' },
@@ -1629,10 +1661,10 @@
           </div>
           <div class="panel-card">
             <div class="panel-card-title">Status gerais da operação</div>
-            <div class="metric-row"><span class="metric-name">Não iniciado</span><span class="metric-value">${App.tasks.filter(t => t.status === 'Não iniciado').length}</span></div>
-            <div class="metric-row"><span class="metric-name">Em andamento</span><span class="metric-value" style="color:var(--yellow)">${App.tasks.filter(t => t.status === 'Em andamento').length}</span></div>
-            <div class="metric-row"><span class="metric-name">Em pausa</span><span class="metric-value" style="color:var(--purple)">${App.tasks.filter(t => t.status === 'Em pausa').length}</span></div>
-            <div class="metric-row"><span class="metric-name">Finalizado</span><span class="metric-value" style="color:var(--green)">${App.tasks.filter(t => t.status === 'Finalizado').length}</span></div>
+            <div class="metric-row"><span class="metric-name">Não iniciado</span><span class="metric-value">${App.tasks.filter(t => normalizeTaskStatus(t.status) === 'Não iniciado').length}</span></div>
+            <div class="metric-row"><span class="metric-name">Em andamento</span><span class="metric-value" style="color:var(--yellow)">${App.tasks.filter(t => normalizeTaskStatus(t.status) === 'Em andamento').length}</span></div>
+            <div class="metric-row"><span class="metric-name">Em pausa</span><span class="metric-value" style="color:var(--purple)">${App.tasks.filter(t => normalizeTaskStatus(t.status) === 'Em pausa').length}</span></div>
+            <div class="metric-row"><span class="metric-name">Finalizado</span><span class="metric-value" style="color:var(--green)">${App.tasks.filter(t => isFinishedStatus(t.status)).length}</span></div>
           </div>
         </div>
       </div>
@@ -1663,7 +1695,7 @@
     if (!task || task.status === status) return;
     task.status = status;
     applyFilters(); renderBoard();
-    toast(`Status atualizado → ${status}`, 'success');
+    toast(`Status atualizado ? ${status}`, 'success');
     apiPost({ action: 'updateStatus', id: task.id, status }, { background: true })
       .catch(() => toast('Erro ao atualizar status', 'error'));
   };
@@ -1703,7 +1735,7 @@
     const task = App.tasks.find(t => String(t.id) === String(id));
     if (!task) return;
     if (!canEditTask() && hasRole('visitante')) {
-      toast('Seu perfil é somente leitura.', 'warning');
+      toast('Seu perfil • somente leitura.', 'warning');
     }
     App.drawerMode = 'task';
     App.currentTask = JSON.parse(JSON.stringify(task)); // deep copy
@@ -1822,16 +1854,16 @@
 
   const formatTaskDate = (value, fallback = 'Sem prazo') => {
     if (!value) return fallback;
-    const parsed = new Date(value);
-    if (isNaN(parsed.getTime())) return fallback;
+    const parsed = parseLocalDate(value);
+    if (!parsed) return fallback;
     return parsed.toLocaleDateString('pt-BR');
   };
 
   const formatDateInputValue = (value) => {
     if (!value) return '';
     if (/^\d{4}-\d{2}-\d{2}$/.test(String(value))) return String(value);
-    const parsed = new Date(value);
-    if (isNaN(parsed.getTime())) return '';
+    const parsed = parseLocalDate(value);
+    if (!parsed) return '';
     const year = parsed.getFullYear();
     const month = String(parsed.getMonth() + 1).padStart(2, '0');
     const day = String(parsed.getDate()).padStart(2, '0');
@@ -1850,8 +1882,8 @@
       if (!isNaN(parsed.getTime())) return iso;
       return null;
     }
-    const parsed = new Date(raw);
-    if (isNaN(parsed.getTime())) return null;
+    const parsed = parseLocalDate(raw);
+    if (!parsed) return null;
     const year = parsed.getFullYear();
     const month = String(parsed.getMonth() + 1).padStart(2, '0');
     const day = String(parsed.getDate()).padStart(2, '0');
@@ -1876,8 +1908,9 @@
       ? App.pendingComment.text
       : '';
 
-    const statusOpts = ['Não iniciado','Em andamento','Finalizado','Em pausa']
-      .map(s => `<button class="status-opt${t.status===s?' selected':''}" data-val="${s}" ${readOnlyTask ? 'disabled' : ''} onclick="selectStatus(this)">${s}</button>`).join('');
+    const selectedStatusValue = t.status || 'Não iniciado';
+    const statusOpts = ['Não iniciado','Em andamento','Finalizado','Finalizado no prazo','Finalizado em atraso','Em pausa']
+      .map(s => `<button class="status-opt${selectedStatusValue===s?' selected':''}" data-val="${s}" ${readOnlyTask ? 'disabled' : ''} onclick="selectStatus(this)">${s}</button>`).join('');
 
     const equipes = getDepartmentNames();
     const responsaveis = getTaskResponsibleOptions(t.equipe, t.responsavel);
@@ -1929,7 +1962,7 @@
             <label class="form-label">Responsável</label>
             <select class="form-select" id="f-responsavel" ${readOnlyTask ? 'disabled' : ''}>
               <option value="">Selecione um colaborador</option>
-              ${responsaveis.map(r => `<option value="${escHtml(r.nome)}"${t.responsavel===r.nome?' selected':''}>${escHtml(r.nome)}${r.cargo ? ' — ' + escHtml(r.cargo) : ''}</option>`).join('')}
+              ${responsaveis.map(r => `<option value="${escHtml(r.nome)}"${t.responsavel===r.nome?' selected':''}>${escHtml(r.nome)}${r.cargo ? ' • ' + escHtml(r.cargo) : ''}</option>`).join('')}
             </select>
           </div>
         </div>
@@ -1949,7 +1982,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Observações</label>
-          <textarea class="form-textarea" id="f-obs" placeholder="Notas, links do Bitrix24…" ${readOnlyTask ? 'readonly' : ''}>${escHtml(cleaned)}</textarea>
+          <textarea class="form-textarea" id="f-obs" placeholder="Notas, links do Bitrix24..." ${readOnlyTask ? 'readonly' : ''}>${escHtml(cleaned)}</textarea>
           ${links.length ? `<div class="obs-links">${links.map((l,i) => `<a class="bitrix-btn" href="${l}" target="_blank"><i data-lucide="external-link" class="icon icon-sm"></i>Tarefa Bitrix #${i+1}</a>`).join('')}</div>` : ''}
         </div>
       </div>
@@ -2120,7 +2153,7 @@
     const currentValue = responsavelEl.value;
     const options = getTaskResponsibleOptions(selectedTeam, currentValue);
     responsavelEl.innerHTML = `<option value="">Selecione um colaborador</option>${
-      options.map(r => `<option value="${escHtml(r.nome)}"${currentValue===r.nome?' selected':''}>${escHtml(r.nome)}${r.cargo ? ' — ' + escHtml(r.cargo) : ''}</option>`).join('')
+      options.map(r => `<option value="${escHtml(r.nome)}"${currentValue===r.nome?' selected':''}>${escHtml(r.nome)}${r.cargo ? ' • ' + escHtml(r.cargo) : ''}</option>`).join('')
     }`;
   };
 
@@ -2144,9 +2177,9 @@
 
   const renderSubtaskItem = (s, i, readOnly = false) => {
     return `<div class="subtask-item${s.concluido?' done':''}${readOnly?' read-only':''}" data-si="${i}">
-      <div class="subtask-checkbox${readOnly?' read-only':''}" ${readOnly ? '' : `onclick="toggleSubtask(${i})"`}>${s.concluido?'✓':''}</div>
+      <div class="subtask-checkbox${readOnly?' read-only':''}" ${readOnly ? '' : `onclick="toggleSubtask(${i})"`}>${s.concluido?'?':''}</div>
       <textarea class="subtask-text" rows="1" ${readOnly ? 'readonly' : ''} oninput="autoResizeTA(this);updateSubtaskText(${i},this.value)">${escHtml(s.texto)}</textarea>
-      ${readOnly ? '' : `<button class="subtask-delete" onclick="deleteSubtask(${i})" title="Remover">✕</button>`}
+      ${readOnly ? '' : `<button class="subtask-delete" onclick="deleteSubtask(${i})" title="Remover">?</button>`}
     </div>`;
   };
 
@@ -2184,7 +2217,7 @@
     if (!el) return;
     el.classList.toggle('done');
     const cb = el.querySelector('.subtask-checkbox');
-    cb.textContent = el.classList.contains('done') ? '✓' : '';
+    cb.textContent = el.classList.contains('done') ? '?' : '';
   };
 
   const updateSubtaskText = (i, val) => {};
@@ -2223,11 +2256,23 @@
     toast(message, 'success');
     
     apiPost({ action: apiAction, payload }, { background: true })
-      .then(created => {
-        if (created?.id && tempIdToReplace && replaceList) {
-          const i = replaceList.findIndex(item => item.id === tempIdToReplace);
-          if (i !== -1) replaceList[i].id = created.id;
+      .then(savedEntity => {
+        const targetList = replaceList || App.tasks;
+        if (savedEntity?.id && tempIdToReplace && targetList) {
+          const i = targetList.findIndex(item => item.id === tempIdToReplace);
+          if (i !== -1) targetList[i] = { ...targetList[i], ...savedEntity };
+        } else if (savedEntity?.id && targetList) {
+          const i = targetList.findIndex(item => item.id === savedEntity.id);
+          if (i !== -1) targetList[i] = { ...targetList[i], ...savedEntity };
         }
+        syncAppChrome();
+        persistBootstrapCache({
+          tasks: App.tasks,
+          departments: App.departments,
+          collaborators: App.collaborators,
+          users: App.users,
+          currentUser: App.currentUser
+        });
       })
       .catch(() => toast('Aviso: sync falhou. Dado salvo localmente.', 'warning'));
   };
@@ -2391,16 +2436,14 @@
       if (App.currentTask) {
         payload.id           = App.currentTask.id;
         payload.data_criacao = App.currentTask.data_criacao;
-        const idx = App.tasks.findIndex(t => t.id === App.currentTask.id);
-        if (idx !== -1) App.tasks[idx] = { ...App.currentTask, ...payload };
         App.pendingComment = null;
         
-        updateUIAndSync('Tarefa atualizada! Sincronizando…', 'update', payload);
+        updateUIAndSync('Tarefa atualizada! Sincronizando...', 'update', payload);
       } else {
         const tempId = 'local-' + Date.now();
         App.tasks.unshift({ ...payload, id: tempId, data_criacao: new Date().toISOString() });
         App.pendingComment = null;
-        updateUIAndSync('Tarefa criada! Sincronizando com planilha…', 'create', payload, tempId, App.tasks);
+        updateUIAndSync('Tarefa criada! Sincronizando com planilha...', 'create', payload, tempId, App.tasks);
       }
     } catch(e) {
       toast('Erro ao salvar: ' + e.message, 'error');
@@ -2641,21 +2684,21 @@
     { id:'d1', data_criacao:'2026-03-15T00:00:00Z', objetivo:'Finalizar ordens de serviços de 2025', equipe:'OPERACIONAL', responsavel:'Vitória Cristina', prazo_conclusao:'2026-04-01', status:'Não iniciado', observacoes:'Tarefa #94134 link: https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/94134/', subtarefas:'[{"id":1,"texto":"Levantar OS em aberto","concluido":true},{"id":2,"texto":"Validar com setor","concluido":false},{"id":3,"texto":"Fechar registros","concluido":false}]' },
     { id:'d2', data_criacao:'2026-01-20T00:00:00Z', objetivo:'Treinamento financeiro com time de suporte', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-23', status:'Em andamento', observacoes:'Marcar reunião com Gustavo. Trabalhando em parceria com a parametrização.', subtarefas:'[{"id":1,"texto":"Listar casos críticos","concluido":true},{"id":2,"texto":"Preparar material","concluido":true},{"id":3,"texto":"Agendar reunião","concluido":false},{"id":4,"texto":"Realizar treinamento","concluido":false}]' },
     { id:'d3', data_criacao:'2026-02-18T00:00:00Z', objetivo:'Treinamento de recadastramento app tv', equipe:'PROCESSO', responsavel:'Eliezer Godoy', prazo_conclusao:'2026-03-14', status:'Em andamento', observacoes:'Tarefa #92488 Link: https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/92488/', subtarefas:'[]' },
-    { id:'d4', data_criacao:'2026-01-20T00:00:00Z', objetivo:'Projeto Atendimento CS — definição de limite de reincidências', equipe:'OPERACIONAL', responsavel:'Fabiano Jean', prazo_conclusao:'2026-04-10', status:'Em pausa', observacoes:'Reunião com o Sérgio para definição do limite mensal de reincidências.', subtarefas:'[{"id":1,"texto":"Reunião com Sérgio","concluido":true},{"id":2,"texto":"Avaliar vendas fora do horário","concluido":false}]' },
+    { id:'d4', data_criacao:'2026-01-20T00:00:00Z', objetivo:'Projeto Atendimento CS • definição de limite de reincidências', equipe:'OPERACIONAL', responsavel:'Fabiano Jean', prazo_conclusao:'2026-04-10', status:'Em pausa', observacoes:'Reunião com o Sérgio para definição do limite mensal de reincidências.', subtarefas:'[{"id":1,"texto":"Reunião com Sérgio","concluido":true},{"id":2,"texto":"Avaliar vendas fora do horário","concluido":false}]' },
     { id:'d5', data_criacao:'2025-10-27T00:00:00Z', objetivo:'Validar diagnóstico de insatisfeito e muito insatisfeito para OS comercial', equipe:'PROCESSO', responsavel:'Vitória Cristina', prazo_conclusao:'2026-03-31', status:'Em andamento', observacoes:'Tarefa #67620 - pendente. Eliezer informou que até dia 20/03 quer estar entregando a demanda. https://souuni.bitrix24.com.br/company/personal/user/1422/tasks/task/view/67620/', subtarefas:'[{"id":1,"texto":"Validar ID correto","concluido":false},{"id":2,"texto":"Criar fluxo de disparo","concluido":false},{"id":3,"texto":"Testar integração","concluido":false}]' },
     { id:'d6', data_criacao:'2026-03-12T00:00:00Z', objetivo:'Verificar produtividade por capacidade vs entrega por assunto', equipe:'OPERACIONAL', responsavel:'Paulo Henrique', prazo_conclusao:'2026-03-30', status:'Em andamento', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
-    { id:'d7', data_criacao:'2026-02-03T00:00:00Z', objetivo:'Projeto agendamento matriz e filiais — modelo unificado', equipe:'OPERACIONAL', responsavel:'Fabiano Jean', prazo_conclusao:'2026-03-03', status:'Em andamento', observacoes:'Modelo de agendamento: 1 agenda na filial, 2 na matriz em regime 12x36, 1 supervisora', subtarefas:'[{"id":1,"texto":"Definir estrutura","concluido":true},{"id":2,"texto":"Contratar supervisora","concluido":false},{"id":3,"texto":"Implantar agenda","concluido":false}]' },
+    { id:'d7', data_criacao:'2026-02-03T00:00:00Z', objetivo:'Projeto agendamento matriz e filiais • modelo unificado', equipe:'OPERACIONAL', responsavel:'Fabiano Jean', prazo_conclusao:'2026-03-03', status:'Em andamento', observacoes:'Modelo de agendamento: 1 agenda na filial, 2 na matriz em regime 12x36, 1 supervisora', subtarefas:'[{"id":1,"texto":"Definir estrutura","concluido":true},{"id":2,"texto":"Contratar supervisora","concluido":false},{"id":3,"texto":"Implantar agenda","concluido":false}]' },
     { id:'d8', data_criacao:'2025-12-05T00:00:00Z', objetivo:'Promover Política de Rede Neutra', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2026-01-10', status:'Em andamento', observacoes:'Foi criado o modelo e falta a política, junto com o CRM do suporte.', subtarefas:'[{"id":1,"texto":"Criar modelo","concluido":true},{"id":2,"texto":"Escrever política","concluido":false},{"id":3,"texto":"Integrar CRM","concluido":false},{"id":4,"texto":"Publicar internamente","concluido":false}]' },
     { id:'d9', data_criacao:'2026-03-10T00:00:00Z', objetivo:'Organizar transmissor e CTO', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2026-03-20', status:'Não iniciado', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
     { id:'d10', data_criacao:'2026-03-10T00:00:00Z', objetivo:'Padronizar a VLAM 2000', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-10', status:'Não iniciado', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
-    { id:'d11', data_criacao:'2026-03-13T00:00:00Z', objetivo:'Aviso de Falha massiva — treinar equipe N2', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-19', status:'Não iniciado', observacoes:'Delegar para o N2. Testar e treinar a equipe do N2 para acionar o cliente. Treinamento Elieser', subtarefas:'[{"id":1,"texto":"Definir script","concluido":false},{"id":2,"texto":"Treinar N2","concluido":false},{"id":3,"texto":"Testar acesso","concluido":false}]' },
+    { id:'d11', data_criacao:'2026-03-13T00:00:00Z', objetivo:'Aviso de Falha massiva • treinar equipe N2', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-19', status:'Não iniciado', observacoes:'Delegar para o N2. Testar e treinar a equipe do N2 para acionar o cliente. Treinamento Elieser', subtarefas:'[{"id":1,"texto":"Definir script","concluido":false},{"id":2,"texto":"Treinar N2","concluido":false},{"id":3,"texto":"Testar acesso","concluido":false}]' },
     { id:'d12', data_criacao:'2026-02-23T00:00:00Z', objetivo:'Treinamento para aplicação de preset', equipe:'OPERACIONAL', responsavel:'Ramon Thierry', prazo_conclusao:'2026-03-30', status:'Em andamento', observacoes:'Depositar ID da tarefa', subtarefas:'[]' },
-    { id:'d13', data_criacao:'2026-03-02T00:00:00Z', objetivo:'Pesquisa de satisfação — pós atendimento', equipe:'OPERACIONAL', responsavel:'Vitória Cristina', prazo_conclusao:'2026-03-20', status:'Em andamento', observacoes:'Tarefa #95342. Previsão após dia 27/03. https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/95342/', subtarefas:'[{"id":1,"texto":"Criar formulário","concluido":true},{"id":2,"texto":"Disparar pesquisa","concluido":false}]' },
+    { id:'d13', data_criacao:'2026-03-02T00:00:00Z', objetivo:'Pesquisa de satisfação • pós atendimento', equipe:'OPERACIONAL', responsavel:'Vitória Cristina', prazo_conclusao:'2026-03-20', status:'Em andamento', observacoes:'Tarefa #95342. Previsão após dia 27/03. https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/95342/', subtarefas:'[{"id":1,"texto":"Criar formulário","concluido":true},{"id":2,"texto":"Disparar pesquisa","concluido":false}]' },
     { id:'d14', data_criacao:'2026-03-13T00:00:00Z', objetivo:'Teste de Migração do Número Unificado', equipe:'OPERACIONAL', responsavel:'Vitória Cristina', prazo_conclusao:'2026-03-20', status:'Em andamento', observacoes:'Vai ocorrer dia 24/03. https://souuni.bitrix24.com.br/company/personal/user/1880/tasks/task/view/98960/', subtarefas:'[{"id":1,"texto":"Preparar ambiente","concluido":false},{"id":2,"texto":"Realizar migração","concluido":false},{"id":3,"texto":"Validar número","concluido":false}]' },
-    { id:'d15', data_criacao:'2026-03-09T00:00:00Z', objetivo:'Preset padrão — configuração roteadores', equipe:'OPERACIONAL', responsavel:'Paulo Henrique', prazo_conclusao:'2026-03-18', status:'Em andamento', observacoes:'https://souuni.bitrix24.com.br/company/personal/user/896/tasks/task/view/97688/', subtarefas:'[]' },
+    { id:'d15', data_criacao:'2026-03-09T00:00:00Z', objetivo:'Preset padrão • configuração roteadores', equipe:'OPERACIONAL', responsavel:'Paulo Henrique', prazo_conclusao:'2026-03-18', status:'Em andamento', observacoes:'https://souuni.bitrix24.com.br/company/personal/user/896/tasks/task/view/97688/', subtarefas:'[]' },
     { id:'d16', data_criacao:'2025-07-04T00:00:00Z', objetivo:'Fazer visita na filial de Ouro Preto para alinhamento comportamental', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2025-07-09', status:'Finalizado', observacoes:'', subtarefas:'[]' },
     { id:'d17', data_criacao:'2025-06-30T00:00:00Z', objetivo:'Indicadores de Operação do Mês de Junho', equipe:'GERENTES', responsavel:'Núbia Petsch', prazo_conclusao:'2025-07-03', status:'Finalizado', observacoes:'No início a gerente não achou necessário realizar o andamento dos indicadores no mês.', subtarefas:'[{"id":1,"texto":"Coletar dados","concluido":true},{"id":2,"texto":"Montar planilha","concluido":true},{"id":3,"texto":"Apresentar","concluido":true}]' },
-    { id:'d18', data_criacao:'2025-09-09T00:00:00Z', objetivo:'Implementação do IClass — treinamento e implantação', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2025-10-22', status:'Finalizado', observacoes:'Dia 21/10 implantação iniciada com sucesso.', subtarefas:'[{"id":1,"texto":"Treinamento Backoffice","concluido":true},{"id":2,"texto":"Treinamento equipe técnica","concluido":true},{"id":3,"texto":"Implantação","concluido":true}]' },
+    { id:'d18', data_criacao:'2025-09-09T00:00:00Z', objetivo:'Implementação do IClass • treinamento e implantação', equipe:'OPERACIONAL', responsavel:'Renaldo Pires', prazo_conclusao:'2025-10-22', status:'Finalizado', observacoes:'Dia 21/10 implantação iniciada com sucesso.', subtarefas:'[{"id":1,"texto":"Treinamento Backoffice","concluido":true},{"id":2,"texto":"Treinamento equipe técnica","concluido":true},{"id":3,"texto":"Implantação","concluido":true}]' },
   ];
 
   Object.assign(window, {
@@ -2745,3 +2788,10 @@
     }
     renderIcons();
   })();
+
+
+
+
+
+
+
