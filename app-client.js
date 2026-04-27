@@ -243,6 +243,12 @@
     document.body.appendChild(script);
   });
 
+  const getErrorMessage = (error, fallback = 'Falha na autenticação') => {
+    if (!error) return fallback;
+    if (typeof error === 'string') return error;
+    return error?.data?.message || error?.message || fallback;
+  };
+
   const callPublicAuth = async (action, payload) => {
     try {
       const res = await fetch(App.apiUrl, {
@@ -491,20 +497,43 @@
   };
 
   const validateCorporateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || '').trim());
+  const normalizeAuthMessage = (message) => String(message || '')
+    .toLowerCase()
+    .replace(/ã£/g, 'a')
+    .replace(/ã¡/g, 'a')
+    .replace(/ã¢/g, 'a')
+    .replace(/ã©/g, 'e')
+    .replace(/ãª/g, 'e')
+    .replace(/ã­/g, 'i')
+    .replace(/ã³/g, 'o')
+    .replace(/ãµ/g, 'o')
+    .replace(/ãº/g, 'u')
+    .replace(/ã§/g, 'c')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
   const isEmailVerificationError = (message) => {
-    const text = String(message || '').toLowerCase();
-    return text.includes('não foi verificado') || text.includes('nao foi verificado');
+    const text = normalizeAuthMessage(message);
+    return text.includes('nao foi verificado') || text.includes('email ainda nao');
   };
 
   const isSessionConflictError = (message) => {
-    const text = String(message || '').toLowerCase();
+    const text = normalizeAuthMessage(message);
     return text.includes('outro dispositivo') ||
-      text.includes('sessão ativa') ||
       text.includes('sessao ativa') ||
-      text.includes('já está logado') ||
       text.includes('ja esta logado') ||
-      text.includes('usuário já logado') ||
       text.includes('usuario ja logado');
+  };
+
+  const isSessionInvalidationError = (message) => {
+    const text = normalizeAuthMessage(message);
+    return text.includes('sessao invalidada') || text.includes('outro dispositivo');
+  };
+
+  const isSessionExpiredError = (message) => {
+    const text = normalizeAuthMessage(message);
+    return text.includes('sessao invalida') ||
+      text.includes('sessao expirada') ||
+      text.includes('usuario sem acesso');
   };
 
   const executeLogin = async (email, password, replaceActiveSession = false) => {
@@ -539,12 +568,12 @@
       try {
         data = await executeLogin(email, password, false);
       } catch (e) {
-        if (isEmailVerificationError(e?.message)) {
+        if (isEmailVerificationError(getErrorMessage(e))) {
           showAuthShell('verify', { email });
           toast('Seu e-mail ainda não foi verificado. Digite o código enviado para concluir o primeiro acesso.', 'warning', 5000);
           return;
         }
-        if (!isSessionConflictError(e?.message)) throw e;
+        if (!isSessionConflictError(getErrorMessage(e))) throw e;
         const confirmed = confirm('Este usuario ja esta logado em outro dispositivo. Continuar e desconectar a outra sessao?');
         if (!confirmed) return;
         data = await executeLogin(email, password, true);
@@ -559,7 +588,7 @@
       showAppShell();
       toast(`Sessão iniciada para ${data.user.nome || data.user.email}`, 'success');
     } catch (e) {
-      toast('Login falhou: ' + e.message, 'error', 5000);
+      toast('Login falhou: ' + getErrorMessage(e), 'error', 5000);
     } finally {
       setAuthLoading(false);
       hideLoader();
@@ -575,13 +604,13 @@
       toast('Se o e-mail existir, o código foi enviado.', 'success', 4500);
       showAuthShell('reset', { email });
     } catch (e) {
-      toast('Não foi possível iniciar a recuperação: ' + e.message, 'error');
+      toast('Não foi possível iniciar a recuperação: ' + getErrorMessage(e), 'error');
     }
   };
 
   const resetPasswordFlow = async () => {
     const email = document.getElementById('auth-email')?.value.trim();
-    const code = document.getElementById('auth-code')?.value.trim();
+    const code = document.getElementById('auth-code')?.value.replace(/\D/g, '').trim();
     const newPassword = document.getElementById('auth-new-password')?.value || '';
     if (!validateCorporateEmail(email)) return toast('Informe um e-mail válido.', 'warning');
     if (!code) return toast('Informe o código recebido.', 'warning');
@@ -591,7 +620,7 @@
       toast('Senha atualizada com sucesso.', 'success');
       showAuthShell('login');
     } catch (e) {
-      toast('Não foi possível redefinir a senha: ' + e.message, 'error', 5000);
+      toast('Não foi possível redefinir a senha: ' + getErrorMessage(e), 'error', 5000);
     }
   };
 
@@ -611,7 +640,7 @@
       if (res.type !== 'opaque' && res.ok) {
         const json = await res.json();
         if (json.status === 'error') {
-          if (String(json.data?.message || '').includes('Sessão invalidada')) {
+          if (isSessionInvalidationError(json.data?.message)) {
             clearSession();
             showAuthShell('login');
             throw new Error('Sua sessão expirou pois você fez login em outro dispositivo.');
@@ -693,11 +722,11 @@
       App.bootstrappedFromCache = false;
       syncAppChrome();
     } catch(e) {
-      if (String(e.message || '').includes('Sessão invalidada')) {
+      if (isSessionInvalidationError(getErrorMessage(e))) {
         clearSession();
         showAuthShell('login');
         toast('Sua sessão expirou pois você fez login em outro dispositivo.', 'error', 8000);
-      } else if (String(e.message || '').includes('Sessão inválida') || String(e.message || '').includes('Usuário sem acesso') || String(e.message || '').includes('Sessão expirada')) {
+      } else if (isSessionExpiredError(getErrorMessage(e))) {
         clearSession();
         showAuthShell('login');
         toast('Sua sessão expirou. Faça login novamente.', 'warning', 5000);
@@ -743,13 +772,13 @@
       toast('Código de verificação enviado.', 'success', 4000);
       showAuthShell('verify', { email });
     } catch (e) {
-      toast('Não foi possível enviar o código: ' + e.message, 'error', 5000);
+      toast('Não foi possível enviar o código: ' + getErrorMessage(e), 'error', 5000);
     }
   };
 
   const verifyEmailFlow = async () => {
     const email = document.getElementById('auth-email')?.value.trim();
-    const code = document.getElementById('auth-code')?.value.trim();
+    const code = document.getElementById('auth-code')?.value.replace(/\D/g, '').trim();
     if (!validateCorporateEmail(email)) return toast('Informe um e-mail válido.', 'warning');
     if (!code) return toast('Informe o código de verificação.', 'warning');
     try {
@@ -760,7 +789,7 @@
       if (emailEl) emailEl.value = email;
       document.getElementById('auth-password')?.focus();
     } catch (e) {
-      toast('Não foi possível validar o código: ' + e.message, 'error', 5000);
+      toast('Não foi possível validar o código: ' + getErrorMessage(e), 'error', 5000);
     }
   };
 
