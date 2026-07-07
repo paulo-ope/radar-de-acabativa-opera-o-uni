@@ -188,7 +188,9 @@
     
     const toggle = document.getElementById('sidebar-toggle');
     if (toggle) {
-      toggle.title = App.sidebarCollapsed ? 'Expandir menu' : 'Recolher menu';
+      const label = App.sidebarCollapsed ? 'Expandir menu' : 'Recolher menu';
+      toggle.title = label;
+      toggle.setAttribute('aria-label', label);
       toggle.innerHTML = `<i data-lucide="${App.sidebarCollapsed ? 'panel-left-open' : 'panel-left-close'}" class="icon"></i>`;
     }
     try { localStorage.setItem('radar-sidebar-collapsed', App.sidebarCollapsed ? '1' : '0'); } catch (_) {}
@@ -373,7 +375,7 @@
       form.innerHTML = `
         <div class="auth-form-card">
           <div class="auth-input-wrap">
-            <label class="auth-form-label">E-mail cadastrado</label>
+            <label class="auth-form-label" for="auth-email">E-mail cadastrado</label>
             <input class="form-input" id="auth-email" type="email" placeholder="seu.email@empresa.com" value="${escAttr(payload.email || '')}" />
           </div>
           <div class="auth-actions" style="margin-top:14px">
@@ -393,15 +395,15 @@
       form.innerHTML = `
         <div class="auth-form-card">
           <div class="auth-input-wrap">
-            <label class="auth-form-label">E-mail cadastrado</label>
+            <label class="auth-form-label" for="auth-email">E-mail cadastrado</label>
             <input class="form-input" id="auth-email" type="email" placeholder="seu.email@empresa.com" value="${escAttr(payload.email || '')}" />
           </div>
           <div class="auth-input-wrap">
-            <label class="auth-form-label">Código</label>
+            <label class="auth-form-label" for="auth-code">Código</label>
             <input class="form-input" id="auth-code" type="text" placeholder="Código de 6 dígitos" />
           </div>
           <div class="auth-input-wrap">
-            <label class="auth-form-label">Nova senha</label>
+            <label class="auth-form-label" for="auth-new-password">Nova senha</label>
             <input class="form-input" id="auth-new-password" type="password" placeholder="Nova senha" />
           </div>
           <div class="auth-actions" style="margin-top:14px">
@@ -420,11 +422,11 @@
       form.innerHTML = `
         <div class="auth-form-card">
           <div class="auth-input-wrap">
-            <label class="auth-form-label">E-mail cadastrado</label>
+            <label class="auth-form-label" for="auth-email">E-mail cadastrado</label>
             <input class="form-input" id="auth-email" type="email" placeholder="seu.email@empresa.com" value="${escAttr(payload.email || '')}" />
           </div>
           <div class="auth-input-wrap">
-            <label class="auth-form-label">Código de verificação</label>
+            <label class="auth-form-label" for="auth-code">Código de verificação</label>
             <input class="form-input" id="auth-code" type="text" placeholder="Código de 6 dígitos" />
           </div>
           <div class="auth-actions" style="margin-top:14px">
@@ -443,11 +445,11 @@
     form.innerHTML = `
       <div class="auth-form-card">
         <div class="auth-input-wrap">
-          <label class="auth-form-label">E-mail cadastrado</label>
+          <label class="auth-form-label" for="auth-email">E-mail cadastrado</label>
           <input class="form-input" id="auth-email" type="email" placeholder="seu.email@empresa.com" />
         </div>
         <div class="auth-input-wrap">
-          <label class="auth-form-label">Senha</label>
+          <label class="auth-form-label" for="auth-password">Senha</label>
           <div class="password-field">
             <input class="form-input" id="auth-password" type="${App.authPasswordVisible ? 'text' : 'password'}" placeholder="Sua senha" />
             <button class="password-toggle" type="button" onclick="toggleAuthPassword()" aria-label="Mostrar ou esconder senha">
@@ -593,12 +595,20 @@
           return;
         }
         if (!isSessionConflictError(getErrorMessage(e))) throw e;
-        const confirmed = confirm('Este usuario ja esta logado em outro dispositivo. Continuar e desconectar a outra sessao?');
+        const confirmed = await requestConfirm({
+          title: 'Sessão em outro dispositivo',
+          message: 'Este usuário já está logado em outro dispositivo. Continuar e desconectar a outra sessão?',
+          confirmLabel: 'Continuar'
+        });
         if (!confirmed) return;
         data = await executeLogin(email, password, true);
       }
       if (loginNeedsConfirmation(data)) {
-        const confirmed = confirm('Este usuario ja esta logado em outro dispositivo. Continuar e desconectar a outra sessao?');
+        const confirmed = await requestConfirm({
+          title: 'Sessão em outro dispositivo',
+          message: 'Este usuário já está logado em outro dispositivo. Continuar e desconectar a outra sessão?',
+          confirmLabel: 'Continuar'
+        });
         if (!confirmed) return;
         data = await executeLogin(email, password, true);
       }
@@ -2231,7 +2241,7 @@
     return `<div class="subtask-item${s.concluido?' done':''}${readOnly?' read-only':''}" data-si="${i}">
       <div class="subtask-checkbox${readOnly?' read-only':''}" ${readOnly ? '' : `onclick="toggleSubtask(${i})"`}>${s.concluido?'?':''}</div>
       <textarea class="subtask-text" rows="1" ${readOnly ? 'readonly' : ''} oninput="autoResizeTA(this);updateSubtaskText(${i},this.value)">${escHtml(s.texto)}</textarea>
-      ${readOnly ? '' : `<button class="subtask-delete" onclick="deleteSubtask(${i})" title="Remover">?</button>`}
+      ${readOnly ? '' : `<button class="subtask-delete" onclick="deleteSubtask(${i})" title="Remover" aria-label="Remover subtarefa">?</button>`}
     </div>`;
   };
 
@@ -2295,6 +2305,19 @@
     ta.style.height = ta.scrollHeight + 'px';
   };
 
+  // apiPost pode retornar { __opaqueSync: true } quando a escrita caiu no fallback
+  // no-cors (rede/CORS falhou) — nesse caso o servidor NUNCA confirmou a operação,
+  // então não é seguro anunciar sucesso; avisamos que está pendente e recarregamos
+  // em background para confirmar de fato.
+  const notifySyncResult = (result, successMessage, successDuration) => {
+    if (result?.__opaqueSync) {
+      toast('Solicitação enviada. Atualizando dados para confirmar...', 'info', 4500);
+      setTimeout(() => loadTasks({ silent: true, background: true }).catch(() => {}), 1800);
+      return;
+    }
+    toast(successMessage, 'success', successDuration);
+  };
+
   const updateUIAndSync = async (message, apiAction, payload, tempIdToReplace = null, replaceList = null) => {
     const savedEntity = await apiPost({ action: apiAction, payload });
     const targetList = replaceList || App.tasks;
@@ -2317,13 +2340,7 @@
       currentUser: App.currentUser
     });
 
-    if (savedEntity?.__opaqueSync) {
-      toast('Solicitação enviada. Atualizando dados para confirmar...', 'info', 4500);
-      setTimeout(() => loadTasks({ silent: true, background: true }).catch(() => {}), 1800);
-      return;
-    }
-
-    toast(message, 'success');
+    notifySyncResult(savedEntity, message);
   };
 
   const syncPendingComment = (text) => {
@@ -2409,7 +2426,7 @@
         users: App.users,
         currentUser: App.currentUser
       });
-      toast('Comentário excluído.', 'success', 1800);
+      notifySyncResult(updatedTask, 'Comentário excluído.', 1800);
     } catch (e) {
       App.tasks[idx].comentarios = previousCommentsRaw;
       if (App.currentTask?.id === App.tasks[idx].id) {
@@ -2470,7 +2487,7 @@
           users: App.users,
           currentUser: App.currentUser
         });
-        toast('Comentário salvo com sucesso.', 'success', 1800);
+        notifySyncResult(updatedTask, 'Comentário salvo com sucesso.', 1800);
       } catch (e) {
         toast('Falha ao salvar comentário: ' + e.message, 'error');
       }
@@ -2617,12 +2634,12 @@
         const updated = await apiPost({ action: 'updateUser', payload });
         const idx = App.users.findIndex(u => u.id === App.currentAccessUser.id);
         if (idx !== -1) App.users[idx] = { ...App.users[idx], ...updated };
-        toast('Permissão atualizada.', 'success');
+        notifySyncResult(updated, 'Permissão atualizada.');
       } else {
         const payload = { nome, email, papel, ativo, email_verificado, senha };
         const created = await apiPost({ action: 'createUser', payload });
-        if (created) App.users.unshift(created);
-        toast('Usuário criado com sucesso.', 'success');
+        if (created?.id) App.users.unshift(created);
+        notifySyncResult(created, 'Usuário criado com sucesso.');
       }
       
       closeDrawer();
@@ -2725,7 +2742,7 @@
     if (!confirmed) return;
 
     try {
-      await apiPost({ action: 'deleteUser', id: App.currentAccessUser.id });
+      const result = await apiPost({ action: 'deleteUser', id: App.currentAccessUser.id });
       App.users = App.users.filter(u => String(u.id) !== String(App.currentAccessUser.id));
       closeDrawer();
       persistBootstrapCache({
@@ -2736,7 +2753,7 @@
         currentUser: App.currentUser
       });
       syncAppChrome();
-      toast('Acesso excluído com sucesso.', 'success');
+      notifySyncResult(result, 'Acesso excluído com sucesso.');
     } catch (e) {
       toast('Erro ao excluir acesso: ' + e.message, 'error', 5000);
     }
